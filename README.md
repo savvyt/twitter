@@ -23,7 +23,7 @@ First you need to set up a VM that will run the tweet streaming script. Here's w
 
 ### Run the script
 
-Try running the script to make sure that it actually works on the VM (`python3 stream-to-pubsub.py`. If it does, then move on to the next part...
+Try running the script to make sure that it actually works on the VM (`python3 stream-to-pubsub.py`). If it does, then move on to the next part...
 
 ### Setup a Dataflow job
 

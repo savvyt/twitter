@@ -11,7 +11,7 @@ project_id = "twitter-296505"
 project_number = "419512302408"
 pub_sub_topic = "twitter"
 
-# Define the list of terms to listen to
+# Prompt the user for the terms they want to search
 print()
 print("Please enter search terms here (separated by a semicolon): ")
 print()
