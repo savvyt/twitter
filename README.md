@@ -16,7 +16,9 @@ The point of this project is to provide a step-by-step guide on how to analyze t
 
 This pipeline mainly relies on: the Twitter API, Python, and GCP. The Python script in this repo takes data from the Twitter API and sends it to Pub/Sub. Those Pub/Sub messages are then delivered to BigQuery via Dataflow and, finally, visualized in DataStudio (this last part is still very much a work in progress).
 
-(Note that the instructions in this repo assume that you have 1) Twitter developer credentials and 2) a GCP account set up. Assuming you have a Twitter Developer account, you'll need a project, API key (and secret), and access token (and secret). As for your GCP account, you'll probably need to enable API access to Compute Engine, GCS, Secret Manager, Dataflow, and BigQuery. You can do that using the search bar at the top of the GCP interface.)
+## Prereqs
+
+You'll need: 1) Twitter Developer credentials and 2) a GCP account set up. Once you have a Twitter Developer account, you'll need an app, API consumer key (and secret), and access token (and secret). As for your GCP account, you'll probably need to enable API access to Compute Engine, GCS, Secret Manager, Dataflow, and BigQuery. You can do that using the search bar at the top of the GCP interface.
 
 ## The process
 
