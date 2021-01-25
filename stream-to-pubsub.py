@@ -38,7 +38,7 @@ api = tweepy.API(auth, wait_on_rate_limit=True, wait_on_rate_limit_notify=False)
 # Method to push messages to Pub/Sub
 def write_to_pubsub(tweet):
 
-    str_keys = ['created_at','id_str','in_reply_to_status_id_str',\
+    str_keys = ['id_str','in_reply_to_status_id_str',\
         'in_reply_to_user_id_str','lang','text']
     int_keys = ['quote_count','reply_count','retweet_count','favorite_count']
     dict_keys = ['coordinates','place','entities','user']
@@ -47,8 +47,7 @@ def write_to_pubsub(tweet):
     processed_doc = {}
 
     try:
-        time_formatted = datetime.strptime(tweet['created_at'], "%a %b %d %H:%M:%S +0000 %Y")
-        print(time_formatted)
+        processed_doc['created_at'] = datetime.strptime(tweet['created_at'], "%a %b %d %H:%M:%S +0000 %Y")
         
         for key in str_keys:
             if key in tweet:

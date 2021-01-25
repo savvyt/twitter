@@ -1,26 +1,62 @@
 [
   {
-    "name": "id",
+    "name": "created_at",
+    "type": "DATETIME"
+  },
+  {
+    "name": "id_str",
     "type": "STRING"
   },
   {
-    "name": "user_id",
+    "name": "in_reply_to_status_id_str",
     "type": "STRING"
   },
   {
-    "name": "posted_at",
+    "name": "in_reply_to_user_id_str",
     "type": "STRING"
   },
   {
-    "name": "lat",
-    "type": "FLOAT64"
-  },
-  {
-    "name": "lng",
-    "type": "FLOAT64"
+    "name": "lang",
+    "type": "STRING"
   },
   {
     "name": "text",
     "type": "STRING"
+  },
+  {
+    "name": "coordinates",
+    "type": "STRING"
+  },
+  {
+    "name": "place",
+    "type": "STRING"
+  },
+  {
+    "name": "entities",
+    "type": "STRING"
+  },
+  {
+    "name": "user",
+    "type": "STRING"
+  },
+  {
+    "name": "quote_count",
+    "type": "INTEGER"
+  },
+  {
+    "name": "reply_count",
+    "type": "INTEGER"
+  },
+  {
+    "name": "retweet_count",
+    "type": "INTEGER"
+  },
+  {
+    "name": "favorite_count",
+    "type": "INTEGER"
+  },
+  {
+    "name": "truncated",
+    "type": "BOOLEAN"
   }
 ]
