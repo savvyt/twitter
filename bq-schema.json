@@ -1,0 +1,26 @@
+[
+  {
+    "name": "id",
+    "type": "STRING"
+  },
+  {
+    "name": "user_id",
+    "type": "STRING"
+  },
+  {
+    "name": "posted_at",
+    "type": "STRING"
+  },
+  {
+    "name": "lat",
+    "type": "FLOAT64"
+  },
+  {
+    "name": "lng",
+    "type": "FLOAT64"
+  },
+  {
+    "name": "text",
+    "type": "STRING"
+  }
+]
