@@ -14,6 +14,7 @@ pub_sub_topic = "twitter"
 # Define the list of terms to listen to
 # search_terms = ["btc", "bitcoin"]
 print("Please enter search terms here (separated by a semicolon): ")
+print()
 search_terms = input().split(";")
 print()
 print("Sounds good! Here's the list of search terms: [" + ", ".join(search_terms) + "]")
@@ -107,8 +108,9 @@ class StdOutListener(StreamListener):
     def on_status(self, data):
         self._counter += 1
         write_to_pubsub(data._json)
-        if self._counter % 10 == 0:
-            print(f"Found {self._counter} tweets so far!")        
+        print(f"Found {self._counter} tweets so far!")        
+        # if self._counter % 10 == 0:
+        #     print(f"Found {self._counter} tweets so far!")        
         return True
 
     def on_error(self, status):
