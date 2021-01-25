@@ -16,7 +16,7 @@ pub_sub_topic = "twitter"
 print("Please enter search terms here (separated by a single space): ")
 search_terms = input().split(" ")
 print()
-print("Sounds good! Here's the list of search terms: [" + search_terms + "]")
+print("Sounds good! Here's the list of search terms: [" + ", ".join(search_terms) + "]")
 
 # Pull in access keys for Twitter from Secret Manager
 secret_client = secretmanager.SecretManagerServiceClient()
