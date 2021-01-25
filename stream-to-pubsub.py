@@ -106,9 +106,9 @@ class StdOutListener(StreamListener):
 
     def on_status(self, data):
         self._counter += 1
-        if self._counter % 100:
-            print(f"Found {self._counter} tweets so far!")
         write_to_pubsub(data._json)
+        if self._counter % 100 == 0:
+            print(f"Found {self._counter} tweets so far!")        
         return True
 
     def on_error(self, status):
