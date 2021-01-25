@@ -47,7 +47,7 @@ def write_to_pubsub(tweet):
     processed_doc = {}
 
     try:
-        processed_doc['created_at'] = datetime.strptime(tweet['created_at'], "%a %b %d %H:%M:%S +0000 %Y")
+        processed_doc['created_at'] = datetime.strptime(tweet['created_at'], "%a %b %d %H:%M:%S +0000 %Y").isoformat()
         
         for key in str_keys:
             if key in tweet:
