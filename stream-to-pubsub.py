@@ -15,6 +15,8 @@ pub_sub_topic = "twitter"
 # search_terms = ["btc", "bitcoin"]
 print("Please enter search terms here (separated by a single space): ")
 search_terms = input().split(" ")
+print()
+print("Sounds good! Here's the list of search terms: [" + search_terms + "]")
 
 # Pull in access keys for Twitter from Secret Manager
 secret_client = secretmanager.SecretManagerServiceClient()
@@ -40,16 +42,16 @@ api = tweepy.API(auth, wait_on_rate_limit=True, wait_on_rate_limit_notify=False)
 # Method to push messages to Pub/Sub
 def write_to_pubsub(tweet):
 
-    str_keys = ['id_str','in_reply_to_status_id_str',\
-        'in_reply_to_user_id_str','lang','text']
-    int_keys = ['quote_count','reply_count','retweet_count','favorite_count']
-    dict_keys = ['coordinates','place','entities','user']
-    bool_keys = ['truncated']
+    str_keys = ["id_str","in_reply_to_status_id_str",\
+        "in_reply_to_user_id_str","lang","text"]
+    int_keys = ["quote_count","reply_count","retweet_count","favorite_count"]
+    dict_keys = ["coordinates","place","entities","user"]
+    bool_keys = ["truncated"]
 
     processed_doc = {}
 
     try:
-        processed_doc['created_at'] = datetime.strptime(tweet['created_at'], "%a %b %d %H:%M:%S +0000 %Y").isoformat()
+        processed_doc["created_at"] = datetime.strptime(tweet["created_at"], "%a %b %d %H:%M:%S +0000 %Y").isoformat()
         
         for key in str_keys:
             if key in tweet:
