@@ -17,6 +17,7 @@ print("Please enter search terms here (separated by a single space): ")
 search_terms = input().split(" ")
 print()
 print("Sounds good! Here's the list of search terms: [" + ", ".join(search_terms) + "]")
+print()
 
 # Pull in access keys for Twitter from Secret Manager
 secret_client = secretmanager.SecretManagerServiceClient()
@@ -101,10 +102,12 @@ class StdOutListener(StreamListener):
 
     def __init__(self):
         super(StdOutListener, self).__init__()
-        # self._counter = 0
+        self._counter = 0
 
     def on_status(self, data):
-        # self._counter += 1
+        self._counter += 1
+        if self._counter % 100:
+            print(f"Found {self._counter} tweets so far!")
         write_to_pubsub(data._json)
         return True
 
