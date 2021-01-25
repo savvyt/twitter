@@ -13,8 +13,8 @@ pub_sub_topic = "twitter"
 
 # Define the list of terms to listen to
 # search_terms = ["btc", "bitcoin"]
-print("Please enter search terms here (separated by a single space): ")
-search_terms = input().split(" ")
+print("Please enter search terms here (separated by a semicolon): ")
+search_terms = input().split(";")
 print()
 print("Sounds good! Here's the list of search terms: [" + ", ".join(search_terms) + "]")
 print()
@@ -118,6 +118,7 @@ class StdOutListener(StreamListener):
 
 # Start listening
 print("Listening for tweets now")
+print()
 l = StdOutListener()
 stream = tweepy.Stream(auth, l, tweet_mode="extended", is_async=True) # add 'is_async=True' so your connection isn't broken
 stream.filter(track=search_terms)
