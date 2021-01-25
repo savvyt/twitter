@@ -12,7 +12,9 @@ project_number = "419512302408"
 pub_sub_topic = "twitter"
 
 # Define the list of terms to listen to
-search_terms = ["btc", "bitcoin"]
+# search_terms = ["btc", "bitcoin"]
+print("Please enter search terms here (separated by a single space): ")
+search_terms = input().split(" ")
 
 # Pull in access keys for Twitter from Secret Manager
 secret_client = secretmanager.SecretManagerServiceClient()
@@ -108,9 +110,6 @@ class StdOutListener(StreamListener):
         print("Error found!")
         print("Status:")
         print(status)
-        # if status == 420:
-        #     print("Hitting rate limit")
-        #     return False
 
 # Start listening
 print("Listening for tweets now")
