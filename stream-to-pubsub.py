@@ -80,8 +80,6 @@ def write_to_pubsub(tweet):
      
     try:
         # Publish data
-        print(processed_doc)
-        print()
         publisher.publish(topic_path, \
             data=json.dumps(processed_doc).encode("utf-8"), \
             tweet_id=str(processed_doc["id_str"]).encode("utf-8"))            
