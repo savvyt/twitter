@@ -1,5 +1,9 @@
 # Tweet stream
 
+Borrowed heavily from here:
+
+https://github.com/TDehaene/blogposts/tree/master/got_sentiment
+
 ## Setting up VM
 * Created Debian 10 VM (small, us-east-4a)
 	* Make sure to allow access to all APIs (also add "Secret Manager Secret Accessor" to the Compute Engine default service account in IAM)
