@@ -18,7 +18,11 @@ This pipeline mainly relies on: the Twitter API, Python, and GCP. The Python scr
 
 ## Prereqs
 
-You'll need: 1) Twitter Developer credentials and 2) a GCP account set up. Once you have a Twitter Developer account, you'll need an app, API consumer key (and secret), and access token (and secret). As for your GCP account, you'll probably need to enable API access to Compute Engine, GCS, Secret Manager, Dataflow, and BigQuery. You can do that using the search bar at the top of the GCP interface.
+You'll need: 1) Twitter Developer credentials and 2) a GCP account set up. 
+
+Once you have a Twitter Developer account, you'll need an app, API consumer key (and secret), and access token (and secret). 
+
+As for your GCP account, you'll probably need to enable API access to Compute Engine, GCS, Secret Manager, Dataflow, and BigQuery. You can do that using the search bar at the top of the GCP interface.
 
 ## The process
 
@@ -39,7 +43,7 @@ Now you need to add your Twitter API access credentials to GCP Secret Manager. W
 
 Now that the VM is setup and your Twitter API credentials have been added to Secret Manager, the main Python script (`python3 stream-to-pubsub.py`) should work. Try running the script to make sure that it actually works on the VM. If it does, then move on to the next part...
 
-### Setup a Dataflow job
+### Send Pub/Sub messages to BigQuery via Dataflow
 
 Now that the VM works and the Python script can run on the VM, you need a Dataflow job to take the messages that Pub/Sub will receive while the streaming script is running and send those messages to BigQuery. To do that, you can use a GCP template for connecting Pub/Sub to BigQuery:
 
@@ -51,7 +55,7 @@ Once those are ready, you can start the Dataflow job and run the script from you
 
 (Photo of BQ table)
 
-### Visualization
+### Visualize BigQuery data using DataStudio
 
 (WIP)
 
