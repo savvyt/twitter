@@ -11,6 +11,14 @@ project_id = "twitter-296505"
 project_number = "419512302408"
 pub_sub_topic = "twitter"
 
+# To get GCP info from user
+# print("Enter your GCP project ID:")
+# project_id = input()
+# print("Enter your GCP project number:")
+# project_number = input()
+# print("Enter your GCP Pub/Sub topic name:")
+# pub_sub_topic = input()
+
 # Prompt the user for the terms they want to search
 print()
 print("Please enter search terms here (separated by a semicolon): ")
@@ -20,7 +28,7 @@ print()
 print("Sounds good! Here's the list of search terms: [" + ", ".join(search_terms) + "]")
 print()
 
-# Pull in access keys for Twitter from Secret Manager
+# Pull in access keys for Twitter from GCP Secret Manager
 secret_client = secretmanager.SecretManagerServiceClient()
 secret_dict = {}
 secret_names = ["twitter-api-key", "twitter-api-secret", "twitter-access-token", "twitter-access-token-secret"]
@@ -44,54 +52,63 @@ api = tweepy.API(auth, wait_on_rate_limit=True, wait_on_rate_limit_notify=False)
 # Method to push messages to Pub/Sub
 def write_to_pubsub(tweet):
 
-    str_keys = ["id_str","in_reply_to_status_id_str",\
-        "in_reply_to_user_id_str","lang","text"]
+    # Lists of keys that I want the results to include
+    str_keys = ["id_str","in_reply_to_status_id_str", "in_reply_to_user_id_str","lang","text"]
     int_keys = ["quote_count","reply_count","retweet_count","favorite_count"]
     dict_keys = ["coordinates","place","entities","user"]
     bool_keys = ["truncated"]
 
-    processed_doc = {}
+    # Set up a dict to store different parts of the tweet results
+    results_dict = {}
 
+    # Go through the raw data and look to see if each key is contained therein
+    # Note: Right now the script checks different groups of keys depending on the data type returned by the Twitter API
     try:
-        processed_doc["created_at"] = datetime.strptime(tweet["created_at"], "%a %b %d %H:%M:%S +0000 %Y").isoformat()
+        # Get the tweet creation date
+        results_dict["created_at"] = datetime.strptime(tweet["created_at"], "%a %b %d %H:%M:%S +0000 %Y").isoformat()
         
+        # Check all the keys that are type string
         for key in str_keys:
             if key in tweet:
-                processed_doc[key] = tweet[key]
+                results_dict[key] = tweet[key]
             else:
-                processed_doc[key] = "null"        
+                results_dict[key] = "null"        
 
+        # Check all the keys that are type int
         for key in int_keys:
             if key in tweet:
-                processed_doc[key] = tweet[key]
+                results_dict[key] = tweet[key]
             else:
-                processed_doc[key] = 0
+                results_dict[key] = 0
 
+        # Check all the keys that are type dict
         for key in dict_keys:
             if key in tweet:        
-                processed_doc[key] = json.dumps(tweet[key])
+                results_dict[key] = json.dumps(tweet[key])
             else:
-                processed_doc[key] = "null"
+                results_dict[key] = "null"
 
+        # Check all the keys that are type bool
         for key in bool_keys:
             if key in tweet:        
-                processed_doc[key] = tweet[key]
+                results_dict[key] = tweet[key]
             else:
-                processed_doc[key] = False
+                results_dict[key] = False
 
     except Exception as e:
         print("Dict processing failed")
         print(e)
         raise                   
-     
+
+    # Publish the encoded data to Pub/Sub     
     try:
         # Publish data
         publisher.publish(topic_path, \
-            data=json.dumps(processed_doc).encode("utf-8"), \
-            tweet_id=str(processed_doc["id_str"]).encode("utf-8"))            
+            data=json.dumps(results_dict).encode("utf-8"), \
+            tweet_id=str(results_dict["id_str"]).encode("utf-8"))            
 
     except Exception as e:
-        print("Publishing step failed")
+        print("Publishing failed")
         print(e)
         raise        
 

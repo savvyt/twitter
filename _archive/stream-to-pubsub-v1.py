@@ -73,45 +73,45 @@ def write_to_pubsub_v2(tweet):
 
     #     }
 
-    processed_doc = {}
+    results_dict = {}
 
     try:
         for key in str_keys:
             if key in tweet:
-                processed_doc[key] = tweet[key]
+                results_dict[key] = tweet[key]
             else:
-                processed_doc[key] = "null"        
+                results_dict[key] = "null"        
 
         for key in int_keys:
             if key in tweet:
-                processed_doc[key] = tweet[key]
+                results_dict[key] = tweet[key]
             else:
-                processed_doc[key] = 0
+                results_dict[key] = 0
 
         for key in dict_keys:
             if key in tweet:        
-                processed_doc[key] = json.dumps(tweet[key])
+                results_dict[key] = json.dumps(tweet[key])
             else:
-                processed_doc[key] = "null"
+                results_dict[key] = "null"
 
         for key in bool_keys:
             if key in tweet:        
-                processed_doc[key] = tweet[key]
+                results_dict[key] = tweet[key]
             else:
-                processed_doc[key] = False
+                results_dict[key] = False
 
     except Exception as e:
         print("Dict processing failed")
         print(e)
         raise                  
 
-    # # if processed_doc['coordinates'] != "null":
-    # print("processed_doc:")
-    # print(processed_doc)
+    # # if results_dict['coordinates'] != "null":
+    # print("results_dict:")
+    # print(results_dict)
     # print()   
      
     try:
-        if processed_doc["lang"] == "en":     
+        if results_dict["lang"] == "en":     
 
             # # V1 for sending messages to Pub/Sub
             # publisher.publish(topic_path, data=json.dumps({
@@ -122,8 +122,8 @@ def write_to_pubsub_v2(tweet):
 
             # Dump everything
             publisher.publish(topic_path, \
-                data=json.dumps(processed_doc).encode("utf-8"), \
-                tweet_id=str(processed_doc["id_str"]).encode("utf-8"))            
+                data=json.dumps(results_dict).encode("utf-8"), \
+                tweet_id=str(results_dict["id_str"]).encode("utf-8"))            
 
     except Exception as e:
         print("Publishing step failed")
@@ -134,7 +134,7 @@ def write_to_pubsub_v2(tweet):
 # def reformat_tweet(tweet):
 #     # x = tweet
 
-#     # processed_doc = {
+#     # results_dict = {
 #     #     "id": x["id"],
 #     #     "lang": x["lang"],
 #         # "retweeted_id": x["retweeted_status"]["id"] if "retweeted_status" in x else None,
@@ -148,23 +148,23 @@ def write_to_pubsub_v2(tweet):
 #     # }
 
 #     # if x["entities"]["hashtags"]:
-#     #     processed_doc["hashtags"] = [{"text": y["text"], "startindex": y["indices"][0]} for y in
+#     #     results_dict["hashtags"] = [{"text": y["text"], "startindex": y["indices"][0]} for y in
 #     #                                  x["entities"]["hashtags"]]
 #     # else:
-#     #     processed_doc["hashtags"] = []
+#     #     results_dict["hashtags"] = []
 
 #     # if x["entities"]["user_mentions"]:
-#     #     processed_doc["usermentions"] = [{"screen_name": y["screen_name"], "startindex": y["indices"][0]} for y in
+#     #     results_dict["usermentions"] = [{"screen_name": y["screen_name"], "startindex": y["indices"][0]} for y in
 #     #                                      x["entities"]["user_mentions"]]
 #     # else:
-#     #     processed_doc["usermentions"] = []
+#     #     results_dict["usermentions"] = []
 
 #     # if "extended_tweet" in x:
-#     #     processed_doc["text"] = x["extended_tweet"]["full_text"]
+#     #     results_dict["text"] = x["extended_tweet"]["full_text"]
 #     # elif "full_text" in x:
-#     #     processed_doc["text"] = x["full_text"]
+#     #     results_dict["text"] = x["full_text"]
 #     # else:
-#     #     processed_doc["text"] = x["text"]
+#     #     results_dict["text"] = x["text"]
 
 #     str_keys = ['created_at','id_str','in_reply_to_status_id_str',\
 #         'in_reply_to_user_id_str','lang','text']
@@ -180,29 +180,29 @@ def write_to_pubsub_v2(tweet):
 
 #     #     }
 
-#     processed_doc = {}
+#     results_dict = {}
 
 #     for key in str_keys:
 #         if key in tweet:
-#             processed_doc[key] = tweet[key]
+#             results_dict[key] = tweet[key]
 #         else:
-#             processed_doc[key] = "None"        
+#             results_dict[key] = "None"        
 
 #     for key in int_keys:
 #         if key in tweet:
-#             processed_doc[key] = tweet[key]
+#             results_dict[key] = tweet[key]
 #         else:
-#             processed_doc[key] = 0
+#             results_dict[key] = 0
 
 #     for key in dict_keys:
 #         if key in tweet:        
-#             processed_doc[key] = json.dumps(tweet[key])
+#             results_dict[key] = json.dumps(tweet[key])
 #         else:
-#             processed_doc[key] = "None"
+#             results_dict[key] = "None"
 
-#     # if processed_doc['coordinates'] != "null":
-#     print("processed_doc:")
-#     print(processed_doc)
+#     # if results_dict['coordinates'] != "null":
+#     print("results_dict:")
+#     print(results_dict)
 #     print()
 
 #     # # try:
@@ -226,7 +226,7 @@ def write_to_pubsub_v2(tweet):
 #     # # except:
 #     # #     pass        
     
-#     return processed_doc
+#     return results_dict
 
 # Custom listener class
 class StdOutListener(StreamListener):
