@@ -3,8 +3,8 @@ import json
 import time
 import tweepy
 from tweepy.streaming import StreamListener
-# from google.cloud import secretmanager
-# from google.cloud import pubsub_v1
+from google.cloud import secretmanager
+from google.cloud import pubsub_v1
 
 # To track how long the script successfully executes
 script_start = datetime.now()
