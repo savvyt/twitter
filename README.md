@@ -56,7 +56,7 @@ Create a Pub/Sub topic and name it accordingly (something like "twitter" will wo
 
 #### Give it a whirl!
 
-And now you're ready to try running the script! Try running the script (`python3 stream-to-pubsub.py`) to make sure that it actually works on the VM. If it does, then move on to the next part...
+Now, try running the script (`python3 stream-to-pubsub.py`) to make sure that it actually works on the VM. If it does, then move on to the next part.
 
 ### Send Pub/Sub messages to BigQuery via Dataflow
 
