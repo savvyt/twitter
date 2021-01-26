@@ -22,10 +22,6 @@ auth = tweepy.OAuthHandler(secret_dict["twitter-api-key"], \
 auth.set_access_token(secret_dict["twitter-access-token"], \
     secret_dict["twitter-access-token-secret"])
 
-# Authenticate to the Twitter API
-auth = tweepy.OAuthHandler(twitter_api_key, twitter_api_secret)
-auth.set_access_token(twitter_access_token, twitter_access_token_secret)
-
 api = tweepy.API(auth)
 
 print("Performing simple test!")
