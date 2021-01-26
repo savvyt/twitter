@@ -6,18 +6,18 @@ from tweepy.streaming import StreamListener
 from google.cloud import secretmanager
 from google.cloud import pubsub_v1
 
-# Enter your GCP project info here
-project_id = "twitter-296505"
-project_number = "419512302408"
-pub_sub_topic = "twitter"
+# # Enter your GCP project info here
+# project_id = "twitter-296505"
+# project_number = "419512302408"
+# pub_sub_topic = "twitter"
 
 # To get GCP info from user
-# print("Enter your GCP project ID:")
-# project_id = input()
-# print("Enter your GCP project number:")
-# project_number = input()
-# print("Enter your GCP Pub/Sub topic name:")
-# pub_sub_topic = input()
+print("Enter your GCP project ID:")
+project_id = input()
+print("Enter your GCP project number:")
+project_number = input()
+print("Enter your GCP Pub/Sub topic name:")
+pub_sub_topic = input()
 
 # Prompt the user for the terms they want to search
 print()
