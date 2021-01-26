@@ -8,7 +8,6 @@ The point of this project is to provide a step-by-step guide on how to analyze t
 	* This repo is very much a work in progress. I still need to clean up and consolidate the code, add more details about the pipeline process, and improve data visualization.
 
 * Specific to dos:
-	* Do all APIs have to be enabled? Let's see what happens without enabling any APIs
 	* Need to make `stream-to-pubsub.py` search within tweets using lowercase tweet text (so that all results are captured, not just exact string matches)
 	* Need to consolidate the first part of the `write_to_pubsub` function. Currently redundant.
 	* Need to make the script better for running on different GCP projects/orgs
