@@ -151,7 +151,7 @@ try:
 except Exception as e:
     # Check to see how long script ran
     print("Listening halted!")
-    script_end = datetime.datetime.now()
+    script_end = datetime.now()
     print(f"Script end date and time: {script_end.strftime('%m/%d/%Y %H:%M:%S')}")
     diff = (script_end - script_start).total_seconds()
     hours = diff // 3600
