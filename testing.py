@@ -37,6 +37,11 @@ class MyStreamListener(tweepy.StreamListener):
     def on_status(self, status):
         print(status.text)
 
+    def on_error(self, status):
+        print("Error found!")
+        print("Status:")
+        print(status)        
+
 myStreamListener = MyStreamListener()
 myStream = tweepy.Stream(auth = auth, listener=myStreamListener)
 myStream.filter(track=['python'])
