@@ -38,7 +38,6 @@ for secret_name in secret_names:
 
 print("secret_dict")
 print(secret_dict)
-
 # Authenticate to the Twitter API
 auth = tweepy.OAuthHandler(secret_dict["twitter-api-key"], \
     secret_dict["twitter-api-secret"])
@@ -127,6 +126,7 @@ class StdOutListener(StreamListener):
         self._counter = 0
 
     def on_status(self, data):
+        print("Found tweet!")
         self._counter += 1
         write_to_pubsub(data._json)
         if self._counter == 1:    
