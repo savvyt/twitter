@@ -1,6 +1,6 @@
 # Tweet stream
 
-The point of this project is to provide a step-by-step guide on how to analyze the frequency and volume of real-time tweets about specific topics using Python and Google Cloud Platform. You might wish you had a tool to pull in and analyze every tweet from Twitter about POTUS or The Bachelor in real time. And maybe you know Python and use GCP. But you're not sure how to actually create that data pipeline. I tried to do that for myself and found some good high-level resources but most tended to skip over a lot of the nitty gritty details. So I set out to build this pipeline and document the steps necessary to make it work. Hope this helps.
+The point of this project is to provide a step-by-step guide on how to analyze the frequency and volume of real-time tweets about specific topics using Python and Google Cloud Platform. Let's say you're someone who knows some Python, has spent time in GCP, and wishes that you could stream in and analyze tweets. But you're not sure how to actually create that data pipeline. I wanted to build this pipeline for myself and I found some good high-level resources to help guide me. But most tended to skip over a lot of the nitty gritty details. So I set out to build this pipeline and document the steps necessary to make it work. Hope this helps.
 
 ## Current to do list
 
