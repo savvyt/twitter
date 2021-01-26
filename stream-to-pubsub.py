@@ -1,4 +1,5 @@
 from datetime import datetime
+from pytz import timezone
 import json
 import time
 import tweepy
@@ -7,7 +8,7 @@ from google.cloud import secretmanager
 from google.cloud import pubsub_v1
 
 # To track how long the script successfully executes
-script_start = datetime.now()
+script_start = datetime.now(timezone('UTC')).astimezone(timezone('US/Eastern'))
 print(f"Script start date and time: {script_start.strftime('%m/%d/%Y %H:%M:%S')}")
 
 # Load GCP project details
@@ -151,7 +152,7 @@ try:
 except Exception as e:
     # Check to see how long script ran
     print("Listening halted!")
-    script_end = datetime.now()
+    script_end = datetime.now(timezone('UTC')).astimezone(timezone('US/Eastern'))
     print(f"Script end date and time: {script_end.strftime('%m/%d/%Y %H:%M:%S')}")
     diff = (script_end - script_start).total_seconds()
     hours = diff // 3600
