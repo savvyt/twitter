@@ -3,8 +3,12 @@ import json
 import time
 import tweepy
 from tweepy.streaming import StreamListener
-from google.cloud import secretmanager
-from google.cloud import pubsub_v1
+# from google.cloud import secretmanager
+# from google.cloud import pubsub_v1
+
+# To track how long the script successfully executes
+script_start = datetime.now()
+print(f"Script start date and time: {script_start.strftime('%m/%d/%Y %H:%M:%S')}")
 
 # Load GCP project details
 with open("./project-specs.json", "r") as j:
@@ -137,8 +141,27 @@ class StdOutListener(StreamListener):
         print(status)
 
 # Start listening
-print("Listening for tweets now")
-print()
-l = StdOutListener()
-stream = tweepy.Stream(auth, l, tweet_mode="extended", is_async=True) # add 'is_async=True' so your connection breaks less often
-stream.filter(track=search_terms)
+try:
+    print("Listening for tweets now")
+    print()
+    l = StdOutListener()
+    stream = tweepy.Stream(auth, l, tweet_mode="extended", is_async=True) # add 'is_async=True' so your connection breaks less often
+    stream.filter(track=search_terms)
+
+except Exception as e:
+    # Check to see how long script ran
+    print("Listening halted!")
+    script_end = datetime.datetime.now()
+    print(f"Script end date and time: {script_end.strftime('%m/%d/%Y %H:%M:%S')}")
+    diff = (script_end - script_start).total_seconds()
+    hours = diff // 3600
+    minutes = diff % 3600 // 60
+    seconds = diff - (hours * 3600) - (minutes * 60)
+    print(f"Script ran for: {hours} hours, {minutes} minutes, and {seconds} seconds")
+    print()
+
+    # Inspect errors
+    print("See error below:")
+    print()
+    print(e)
+    raise 
