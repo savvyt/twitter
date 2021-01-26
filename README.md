@@ -11,6 +11,7 @@ The point of this project is to provide a step-by-step guide on how to analyze t
 	* Need to make `stream-to-pubsub.py` search within tweets using lowercase tweet text (so that all results are captured, not just exact string matches)
 	* Need to consolidate the first part of the `write_to_pubsub` function. Currently redundant.
 	* Need to make the script better for running on different GCP projects/orgs
+	* Print out stopwatch info if you kill scrip early with ctrl + c (see link [here](https://stackoverflow.com/questions/37378185/handle-ctrl-c-in-python-cmd-module))
 
 ## Overall flow
 
