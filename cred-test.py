@@ -21,6 +21,8 @@ auth = tweepy.OAuthHandler(secret_dict["twitter-api-key"], \
 auth.set_access_token(secret_dict["twitter-access-token"], \
     secret_dict["twitter-access-token-secret"])
 
+api = tweepy.API(auth)
+
 public_tweets = api.home_timeline()
 for tweet in public_tweets:
     print(tweet.text)
