@@ -52,6 +52,8 @@ api = tweepy.API(auth, wait_on_rate_limit=True, wait_on_rate_limit_notify=False)
 # Method to push messages to Pub/Sub
 def write_to_pubsub(tweet):
 
+    print("writing to pubsub")
+
     # Lists of keys that I want the results to include
     str_keys = ["id_str","in_reply_to_status_id_str", "in_reply_to_user_id_str","lang","text"]
     int_keys = ["quote_count","reply_count","retweet_count","favorite_count"]
