@@ -6,19 +6,19 @@ from tweepy.streaming import StreamListener
 from google.cloud import secretmanager
 from google.cloud import pubsub_v1
 
-# To get GCP info from user
-print()
-print("Enter your GCP project ID:")
-project_specs = json.loads("project-specs.json")
-print(project_specs)
-# project_id = json.loads("project-specs.json")
-# print()
-# print("Enter your GCP project number:")
-# project_number = input()
-# print()
-# print("Enter your GCP Pub/Sub topic name:")
-# pub_sub_topic = input()
-# print()
+# Load GCP project details
+with open("./project-specs.json", "r") as j:
+    project_specs = json.loads(j.read())
+    project_id = project_specs["project_id"]
+    project_number = project_specs["project_number"]
+    pub_sub_topic = project_specs["pub_sub_topic"]
+    print()
+    print("Pipeline project details (loaded from 'project-specs.json'):")
+    print()
+    print(f"Project ID: {project_id}")
+    print(f"Project Number: {project_number}")
+    print(f"Project Pub/Sub Topic: {pub_sub_topic}")
+    print()
 
 # Prompt the user for the terms they want to search
 print("Enter search terms here (separated by a semicolon): ")

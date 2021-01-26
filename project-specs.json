@@ -1,7 +1,5 @@
-[
-  {
-    "project_id": "twitter-296505",
-    "project_number": "419512302408",
-    "pub_sub_topic": "twitter"
-  }
-]
+{
+  "project_id": "twitter-296505",
+  "project_number": "419512302408",
+  "pub_sub_topic": "twitter"
+}
