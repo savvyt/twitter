@@ -31,17 +31,30 @@ I'm including lots of detail here to try and help make the setup process faster 
 
 ### Send messages from Twitter API to Pub/Sub
 
-The first part of the pipeline is the Python script `stream-to-pubsub.py`, which will send tweets from the Twitter API into Pub/Sub. To run this script, you'll need to setup a VM where you can run it. Here's what I did:
+The first part of the pipeline is the Python script `stream-to-pubsub.py`, which will send tweets from the Twitter API into Pub/Sub. To run this script, you'll need to:
 
-* Under the Compute Engine tab on GCP, create a Debian 10 VM. Make sure to allow access to all APIs. In my case, I small, zone: us-east-4a
-* Now, SSH into the VM. Using the command line, check for Python 3, install pip, and setup a packaging tool (in your VM, run each of the commands listed [here](https://www.digitalocean.com/community/tutorials/how-to-install-python-3-and-set-up-a-programming-environment-on-debian-10) in "Step 1")
-* Then install `tweepy`, `google-cloud-secret-manager`, and `google-cloud-pubsub` using pip.
-	* Note: I ran into a problem where Secret Manager wouldn't finish installing (others have had [the same issue](https://github.com/grpc/grpc/issues/22815)). But I upgraded pip (with `pip3 install --upgrade pip`) and the install finished quickly.
-* Finally, I installed git so I could pull directly from this repo (`sudo apt install git`)
+1. Setup a VM where you can run the script
+2. Enter your Twitter API credentials in Secret Manager
+3. Create a Pub/Sub topic to receive messages from the Twitter API. 
+
+Here are more details on those 3 steps:
+
+1. Setup VM:
+	* Under the Compute Engine tab on GCP, create a Debian 10 VM. Make sure to allow access to all APIs. In my case, I small, zone: us-east-4a
+	* Now, SSH into the VM. Using the command line, check for Python 3, install pip, and setup a packaging tool (in your VM, run each of the commands listed [here](https://www.digitalocean.com/community/tutorials/how-to-install-python-3-and-set-up-a-programming-environment-on-debian-10) in "Step 1")
+	* Then install `tweepy`, `google-cloud-secret-manager`, and `google-cloud-pubsub` using pip.
+		* Note: I ran into a problem where Secret Manager wouldn't finish installing (others have had [the same issue](https://github.com/grpc/grpc/issues/22815)). But I upgraded pip (with `pip3 install --upgrade pip`) and the install finished quickly.
+	* Finally, I installed git so I could pull directly from this repo (`sudo apt install git`)
+
+2. Add Twitter API credentials
 
 Now you need to add your Twitter API access credentials to GCP Secret Manager. Within Secret Manager, create a secret for each of the 4 credentials you'll need for the script to access the Twitter API and name them using the following: "twitter-api-key", "twitter-api-secret", "twitter-access-token", and "twitter-access-token-secret". (Also, add "Secret Manager Secret Accessor" to the Compute Engine default service account in IAM.)
 
-Now that the VM is setup and your Twitter API credentials have been added to Secret Manager, the main Python script (`python3 stream-to-pubsub.py`) should work. Try running the script to make sure that it actually works on the VM. If it does, then move on to the next part...
+3. Create Pub/Sub topic
+
+Create a Pub/Sub topic and name it accordingly (something like "twitter" will work).
+
+And now you're ready to try running the script! Try running the script (`python3 stream-to-pubsub.py`) to make sure that it actually works on the VM. If it does, then move on to the next part...
 
 ### Send Pub/Sub messages to BigQuery via Dataflow
 
