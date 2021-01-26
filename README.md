@@ -60,7 +60,7 @@ Now, try running the script (`python3 stream-to-pubsub.py`) to make sure that it
 
 ### Send Pub/Sub messages to BigQuery via Dataflow
 
-Now that the VM works and the Python script can run on the VM, you need a Dataflow job to take the messages that Pub/Sub will receive while the streaming script is running and send those messages to BigQuery. To do that, you can use a GCP template for connecting Pub/Sub to BigQuery:
+Now that the VM works and the Python script can run on the VM, you need a Dataflow job to take the messages that Pub/Sub will receive while the streaming script is running and transform and send those messages to BigQuery. To do that, you can use a GCP template for connecting Pub/Sub to BigQuery:
 
 (Photo of template)
 
@@ -76,7 +76,9 @@ Once those are ready, you can start the Dataflow job and run the script from you
 
 ## Troubleshooting
 
-If you run into errors where your Dataflow job doesn't run, you should double check to make sure that the necessary Dataflow APIs have been enabled (using the command 'gcloud services enable dataflow.googleapis.com').
+### Dataflow
+
+If your Dataflow job doesn't run, you should double check to make sure that the necessary Dataflow APIs have been enabled (using the command `gcloud services enable dataflow.googleapis.com`).
 
 ## Notes
 
