@@ -8,6 +8,7 @@ The point of this project is to provide a step-by-step guide on how to analyze t
 	* This repo is very much a work in progress. I still need to clean up and consolidate the code, add more details about the pipeline process, and improve data visualization.
 
 * Specific to dos:
+	* Do all APIs have to be enabled? Let's see what happens without enabling any APIs
 	* Need to make `stream-to-pubsub.py` search within tweets using lowercase tweet text (so that all results are captured, not just exact string matches)
 	* Need to consolidate the first part of the `write_to_pubsub` function. Currently redundant.
 	* Need to make the script better for running on different GCP projects/orgs
@@ -32,9 +33,8 @@ I'm including lots of detail here to try and help make the setup process faster 
 
 The first part of the pipeline is the Python script `stream-to-pubsub.py`, which will send tweets from the Twitter API into Pub/Sub. To run this script, you'll need to setup a VM where you can run it. Here's what I did:
 
-* Under the Compute Engine tab on GCP, create a Debian 10 VM (size: small, zone: us-east-4a) 
-	* Make sure to allow access to all APIs
-* On the VM, check for Python 3, install pip, and setup a packaging tool (in your VM, run each of the commands listed [here](https://www.digitalocean.com/community/tutorials/how-to-install-python-3-and-set-up-a-programming-environment-on-debian-10) in "Step 1")
+* Under the Compute Engine tab on GCP, create a Debian 10 VM. Make sure to allow access to all APIs. In my case, I small, zone: us-east-4a
+* Now, SSH into the VM. Using the command line, check for Python 3, install pip, and setup a packaging tool (in your VM, run each of the commands listed [here](https://www.digitalocean.com/community/tutorials/how-to-install-python-3-and-set-up-a-programming-environment-on-debian-10) in "Step 1")
 * Then install `tweepy`, `google-cloud-secret-manager`, and `google-cloud-pubsub` using pip.
 	* Note: I ran into a problem where Secret Manager wouldn't finish installing (others have had [the same issue](https://github.com/grpc/grpc/issues/22815)). But I upgraded pip (with `pip3 install --upgrade pip`) and the install finished quickly.
 * Finally, I installed git so I could pull directly from this repo (`sudo apt install git`)

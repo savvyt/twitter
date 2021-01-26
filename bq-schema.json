@@ -1,5 +1,9 @@
 [
   {
+    "name": "search_terms",
+    "type": "STRING"
+  },  
+  {
     "name": "created_at",
     "type": "DATETIME"
   },

@@ -65,6 +65,7 @@ def write_to_pubsub(tweet):
     # Note: Right now the script checks different groups of keys depending on the data type returned by the Twitter API
     try:
         # Get the tweet creation date
+        # results_dict["search_terms"] = ";".join(search_terms).encode("utf-8")
         results_dict["created_at"] = datetime.strptime(tweet["created_at"], "%a %b %d %H:%M:%S +0000 %Y").isoformat()
         
         # Check all the keys that are type string
