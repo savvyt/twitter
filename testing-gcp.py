@@ -1,6 +1,5 @@
 import tweepy
 from google.cloud import secretmanager
-
 import ntplib
 from datetime import datetime, timezone
 from time import ctime
