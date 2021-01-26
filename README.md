@@ -75,6 +75,12 @@ Once those are ready, you can start the Dataflow job and run the script from you
 
 ## Troubleshooting
 
+### Python script/VM
+
+Receiving 401s when you run the script? 
+* Make sure you've entered the correct API credential information in Secret Manager (you may need to regenerate credentials. Twitter seems to reject credentials after a certain period of time but I'm not sure exactly how long credentials do or don't last.
+* If your credentials check out, the problem may be that the VM's internal clock is inaccurate. The VM's clock can be delayed if you pause the VM. Try stopping and restarting the VM. This should reset the clock (run `timedatectl` within the VM and check to see if `System clock synchronized` is set to `yes`). If you do want to put the VM on hold in the future, it may be better to stop it altogether rather than pause.
+
 ### Dataflow
 
 If your Dataflow job doesn't run, you should double check to make sure that the necessary Dataflow APIs have been enabled (using the command `gcloud services enable dataflow.googleapis.com`).
