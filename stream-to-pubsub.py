@@ -7,20 +7,23 @@ from google.cloud import secretmanager
 from google.cloud import pubsub_v1
 
 # # Enter your GCP project info here
-# project_id = "twitter-296505"
-# project_number = "419512302408"
-# pub_sub_topic = "twitter"
+project_id = "twitter-296505"
+project_number = "419512302408"
+pub_sub_topic = "twitter"
 
 # To get GCP info from user
+print()
 print("Enter your GCP project ID:")
 project_id = input()
+print()
 print("Enter your GCP project number:")
 project_number = input()
+print()
 print("Enter your GCP Pub/Sub topic name:")
 pub_sub_topic = input()
+print()
 
 # Prompt the user for the terms they want to search
-print()
 print("Please enter search terms here (separated by a semicolon): ")
 print()
 search_terms = input().split(";")
