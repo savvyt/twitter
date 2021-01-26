@@ -151,13 +151,14 @@ try:
 
 except Exception as e:
     # Check to see how long script ran
+    print()
     print("Listening halted!")
     script_end = datetime.now(timezone('UTC')).astimezone(timezone('US/Eastern'))
     print(f"Script end date and time: {script_end.strftime('%m/%d/%Y %H:%M:%S')}")
     diff = (script_end - script_start).total_seconds()
     hours = diff // 3600
     minutes = diff % 3600 // 60
-    seconds = diff - (hours * 3600) - (minutes * 60)
+    seconds = round(diff - (hours * 3600) - (minutes * 60), 2)
     print(f"Script ran for: {hours} hours, {minutes} minutes, and {seconds} seconds")
     print()
 
