@@ -26,7 +26,7 @@ Once you have a Twitter Developer account, you'll need an app, API consumer key 
 
 ## The process
 
-I'm including lots of detail here to try and help make the setup process faster for others.
+I'm including lots of detail here to try and help make the setup process faster for others because a lot of other resources I came across breeze over the nitty gritty details.
 
 ### Send messages from Twitter API to Pub/Sub
 
