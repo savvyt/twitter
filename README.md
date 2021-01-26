@@ -1,6 +1,6 @@
 # Tweet stream
 
-The point of this project is to provide a step-by-step guide on how to analyze the frequency and volume of real-time tweets about specific topics using Python and Google Cloud Platform. Say, for example, you want to see how many people on Twitter right now are talking about #POTUS. Then you could use this repo as a guide to help you set up a data pipeline that retrieves tweets with the hashtag "#POTUS" and then visualizes the volume of those tweets over time.
+The point of this project is to provide a step-by-step guide on how to analyze the frequency and volume of real-time tweets about specific topics using Python and Google Cloud Platform. You might wish you had a tool to pull in and analyze every tweet from Twitter about POTUS or The Bachelor in real time. And maybe you know Python and use GCP. But you're not sure how to actually create that data pipeline. I tried to do that for myself and found some good high-level resources but most tended to skip over a lot of the nitty gritty details. So I set out to build this pipeline and document the steps necessary to make it work. Hope this helps.
 
 ## Current to do list
 
