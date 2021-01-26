@@ -1,6 +1,17 @@
 import tweepy
 from google.cloud import secretmanager
 
+import ntplib
+from datetime import datetime, timezone
+from time import ctime
+
+# Checking the time
+c = ntplib.NTPClient()
+# Provide the respective ntp server ip in below function
+response = c.request('uk.pool.ntp.org', version=3)
+response.offset
+print(datetime.fromtimestamp(response.tx_time, timezone.utc))    
+
 # Enter your GCP project info here
 project_id = "twitter-296505"
 project_number = "419512302408"
