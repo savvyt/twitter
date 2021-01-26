@@ -15,11 +15,16 @@ for secret_name in secret_names:
 
 print("secret_dict")
 print(secret_dict)
+
 # Authenticate to the Twitter API
 auth = tweepy.OAuthHandler(secret_dict["twitter-api-key"], \
     secret_dict["twitter-api-secret"])
 auth.set_access_token(secret_dict["twitter-access-token"], \
     secret_dict["twitter-access-token-secret"])
+
+# Authenticate to the Twitter API
+auth = tweepy.OAuthHandler(twitter_api_key, twitter_api_secret)
+auth.set_access_token(twitter_access_token, twitter_access_token_secret)
 
 api = tweepy.API(auth)
 
