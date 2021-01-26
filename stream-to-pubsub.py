@@ -36,8 +36,6 @@ for secret_name in secret_names:
     secret_dict[secret_name] = secret_client.access_secret_version({"name": \
         f"projects/{project_number}/secrets/{secret_name}/versions/latest"}).payload.data.decode("UTF-8")
 
-print("secret_dict")
-print(secret_dict)
 # Authenticate to the Twitter API
 auth = tweepy.OAuthHandler(secret_dict["twitter-api-key"], \
     secret_dict["twitter-api-secret"])

@@ -23,6 +23,17 @@ auth.set_access_token(secret_dict["twitter-access-token"], \
 
 api = tweepy.API(auth)
 
+# Simple test
 public_tweets = api.home_timeline()
 for tweet in public_tweets:
     print(tweet.text)
+
+# Streaming test
+class MyStreamListener(tweepy.StreamListener):
+
+    def on_status(self, status):
+        print(status.text)
+
+myStreamListener = MyStreamListener()
+myStream = tweepy.Stream(auth = auth, listener=myStreamListener())
+myStream.filter(track=['python'])
