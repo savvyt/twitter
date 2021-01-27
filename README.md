@@ -12,6 +12,8 @@ So I decided to build this pipeline and document everything along the way with t
 
 ![alt text](assets/flow.png "Pipeline")
 
+![alt text](assets/flow2.png "Pipeline")
+
 This pipeline mainly relies on: the Twitter API, Python, and GCP. The Python script in this repo takes data from the Twitter API (credentials are stored in and pulled from Secret Manager) and sends it to Pub/Sub. Those Pub/Sub messages are then delivered to BigQuery via Dataflow and, finally, visualized in DataStudio (or maybe a different tool - this last part is still very much a work in progress).
 
 ## Prereqs
@@ -26,7 +28,7 @@ Once you have a Twitter Developer account, you'll need an app, API consumer key 
 
 ## The pipeline
 
-Buckle up.
+Now let's start setting everything up, from the VM to the Dataflow job. Most of the work is done upfront with setting up the VM
 
 ### Send messages from Twitter API to Pub/Sub
 
