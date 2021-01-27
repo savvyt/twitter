@@ -4,7 +4,7 @@
 
 # Project Overview
 
-Let's say you're someone who knows some Python, has spent time in Google Cloud Platform, and would like to work with streaming data from Twitter (either because you're curious or, like me, you wanted practice building a streaming data pipeline from start to finish). I set out to do just this and I found some good high-level resources to help guide me. But most tended to skip over some of the nitty gritty details needed to make the thing work.
+Let's say you're someone who knows some Python, has spent time on Google Cloud Platform, and would like to work with streaming data from Twitter (either because you're curious or, like me, you wanted practice building a streaming data pipeline from start to finish). I set out to do just this and I found some good high-level resources to help guide me. But most tended to skip over some of the nitty gritty details needed to make the thing work.
 
 So I decided to build this pipeline and document everything along the way with the intention of making it a little easier for others to do the same in the future. So without further ado, here's my attempt at providing a step by step guide to building a pipeline for analyzing streaming data from Twitter.
 
@@ -12,7 +12,7 @@ So I decided to build this pipeline and document everything along the way with t
 
 ![alt text](assets/flow.png "Pipeline")
 
-This pipeline mainly relies on: the Twitter API, Python, and GCP. The Python script in this repo takes data from the Twitter API (credentials are stored in and pulled from Secret Manager) and sends it to Pub/Sub. Those Pub/Sub messages are then delivered to BigQuery via Dataflow and, finally, visualized in DataStudio (or maybe a different tool - this last part is still very much a work in progress).
+This pipeline mainly relies on: the Twitter API, Python, and GCP. The Python script in this repo (`stream-to-pubsub.py`)lets the user stream in tweets about specific topics by letting the user input search phrases and hashtags at the command line. Once the program is running and the user has entered their search terms, the script accesses the Twitter API (credentials are stored in and pulled from Secret Manager), listens for tweets with those search terms, and sends them to Pub/Sub. Those Pub/Sub messages are then delivered to BigQuery via Dataflow and, finally, can be visualized using tools like DataStudio.
 
 ## Prereqs
 
@@ -49,7 +49,7 @@ Now you need to add your Twitter API access credentials to GCP Secret Manager. W
 
 #### 3. Create Pub/Sub topic
 
-Create a Pub/Sub topic and name it accordingly (something like "twitter" will work).
+Create a Pub/Sub topic and name it accordingly (something like "twitter" will work). Then modify the `project-specs.json` file in this repo using the project and Pub/Sub topic info from your GCP account (you can find that info in the `Home` tab on GCP).
 
 #### Give it a whirl!
 
