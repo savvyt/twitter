@@ -9,6 +9,7 @@ from google.cloud import pubsub_v1
 
 # To track how long the script successfully executes
 script_start = datetime.now(timezone('UTC')).astimezone(timezone('US/Eastern'))
+print()
 print(f"Script start date and time: {script_start.strftime('%m/%d/%Y %H:%M:%S')}")
 
 # Load GCP project details
@@ -26,7 +27,7 @@ print("Enter search terms here (separated by a semicolon): ")
 print()
 search_terms = input().split(";")
 print()
-print("Sounds good! Here's the list of search terms: [" + ", ".join(search_terms) + "]")
+print("Sounds good! Here's the list of your search terms: [" + ", ".join(search_terms) + "]")
 print()
 
 # Pull in access keys for Twitter from GCP Secret Manager
@@ -129,7 +130,7 @@ class StdOutListener(StreamListener):
         self._counter += 1
         write_to_pubsub(data._json)
         if self._counter % 10 == 0:
-            print(f"Found {self._counter} tweets so far!")        
+            print(f"Collected {self._counter} tweets so far")        
         return True
 
     def on_error(self, status):
@@ -139,7 +140,7 @@ class StdOutListener(StreamListener):
 
 # Start listening
 try:
-    print("Listening for tweets now")
+    print("Streaming in tweets now!")
     print()
     l = StdOutListener()
     stream = tweepy.Stream(auth, l, tweet_mode="extended", is_async=True) # add 'is_async=True' so your connection breaks less often
