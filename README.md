@@ -38,14 +38,14 @@ The first part of the pipeline involves sending tweets from the Twitter API to P
 
 #### 1. Setup VM:
 * Under the Compute Engine tab on GCP, create a Debian 10 VM. Make sure to allow access to all APIs. (In my case, I set up an `e2-small` machine in zone `us-east-4a`.)
-* Now, SSH into the VM. From the command line, check for Python 3, install pip, and setup a packaging tool (in your VM, run each of the commands listed [here](https://www.digitalocean.com/community/tutorials/how-to-install-python-3-and-set-up-a-programming-environment-on-debian-10) in "Step 1")
+* Now, SSH into the VM. From the command line, check for Python 3, install pip, and setup a packaging tool (in your VM, run each of the commands listed [here](https://www.digitalocean.com/community/tutorials/how-to-install-python-3-and-set-up-a-programming-environment-on-debian-10) in "Step 1").
 * Then install `tweepy`, `google-cloud-secret-manager`, and `google-cloud-pubsub` using `pip3`.
 	* Note: I ran into a problem where Secret Manager wouldn't finish installing (others have had [the same issue](https://github.com/grpc/grpc/issues/22815)). But I upgraded pip (with `pip3 install --upgrade pip`), reran the install, and it finished quickly.
-* Finally, I installed git so I could pull directly from this repo (`sudo apt install git`)
+* Finally, I installed git so I could pull directly from this repo (`sudo apt install git`).
 
 #### 2. Add Twitter API credentials
 
-Now you need to add your Twitter API access credentials to GCP Secret Manager. Within Secret Manager, create a secret for each of the 4 credentials you'll need for the script to access the Twitter API and name them using the following: "twitter-api-key", "twitter-api-secret", "twitter-access-token", and "twitter-access-token-secret". (Also, add "Secret Manager Secret Accessor" to the Compute Engine default service account in IAM.)
+Now you need to add your Twitter API access credentials to GCP Secret Manager. Within Secret Manager, create a secret for each of the 4 credentials you'll need for the script to access the Twitter API and name them accordingly (`twitter-api-key`, `twitter-api-secret`, `twitter-access-token`, and `twitter-access-token-secret`). Lastly, add `Secret Manager Secret Accessor` to the Compute Engine default service account in IAM.
 
 #### 3. Create Pub/Sub topic
 
@@ -67,13 +67,13 @@ Once those are ready, you can start the Dataflow job and run the script from you
 
 ![alt text](assets/bq.png "BigQuery")
 
-### Visualize BigQuery data using DataStudio
-
-(WIP)
+### Visualize BigQuery data using DataStudio (WIP)
 
 ![alt text](assets/datastudio.png "Sample of results from running script")
 
 *Sample final output from pipeline showing result from streaming in tweets about Bitcoin*
+
+So far, I've played around with visualizing the data in Data Studio but haven't figured out how to make the timeseries chart update continuously to reflect the arrival of new data. I think there might be a way to do it in Data Studio but I'll have to keep tinkering.
 
 ## Troubleshooting
 
@@ -92,16 +92,3 @@ If your Dataflow job doesn't run, you should double check to make sure that the 
 To get this project off the ground, I initially borrowed code from here:
 
 https://github.com/TDehaene/blogposts/tree/master/got_sentiment
-
-## Current to do list
-
-* High-level to dos:
-	* This repo is very much a work in progress. I still need to clean up and consolidate the code, add more details about the pipeline process, and improve data visualization.
-	* Make script robust to timeout issues
-	* Make it possible to separate query strings and organize results in BQ based on query string matches (each row corresponds to a match with a given query paramater in the list)
-
-* Specific to dos:
-	* Need to make `stream-to-pubsub.py` search within tweets using lowercase tweet text (so that all results are captured, not just exact string matches)
-	* Need to consolidate the first part of the `write_to_pubsub` function. Currently redundant.
-	* Need to make the script better for running on different GCP projects/orgs
-	* Print out stopwatch info if you kill scrip early with ctrl + c (see link [here](https://stackoverflow.com/questions/37378185/handle-ctrl-c-in-python-cmd-module))
