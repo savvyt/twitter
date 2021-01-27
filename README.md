@@ -6,7 +6,7 @@
 
 Let's say you're someone who knows some Python, has spent time in GCP, and would like to work with streaming data from Twitter (either because you're curious or, like me, you wanted practice building a streaming data pipeline from start to finish). I set out to do just this and I found some good high-level resources to help guide me. But most tended to skip over some of the nitty gritty details needed to make the thing work.
 
-So I decided to build this pipeline and document everything along the way with the intention of making it a little easier for others to do the same in the future. So without further ado, here's my attempt at providing a true step by step guide to building a pipeline for analyzing streaming data from Twitter.
+So I decided to build this pipeline and document everything along the way with the intention of making it a little easier for others to do the same in the future. So without further ado, here's my attempt at providing a step by step guide to building a pipeline for analyzing streaming data from Twitter.
 
 ## Overall flow
 
@@ -16,7 +16,7 @@ This pipeline mainly relies on: the Twitter API, Python, and GCP. The Python scr
 
 ## Prereqs
 
-<img align="center" width="100" height="100" src="assets/gcp-twitter.png">
+![alt text](assets/gcp-twitter.png "Pipeline")
 
 You'll need: 1) Twitter Developer credentials and 2) a GCP account set up. 
 
