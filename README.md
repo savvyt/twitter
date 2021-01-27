@@ -6,6 +6,8 @@ The point of this project is to provide a step-by-step guide on how to analyze t
 
 * High-level to dos:
 	* This repo is very much a work in progress. I still need to clean up and consolidate the code, add more details about the pipeline process, and improve data visualization.
+	* Make script robust to timeout issues
+	* Make it possible to separate query strings and organize results in BQ based on query string matches (each row corresponds to a match with a given query paramater in the list)
 
 * Specific to dos:
 	* Need to make `stream-to-pubsub.py` search within tweets using lowercase tweet text (so that all results are captured, not just exact string matches)
