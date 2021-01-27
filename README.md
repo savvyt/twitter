@@ -16,7 +16,7 @@ This pipeline mainly relies on: the Twitter API, Python, and GCP. The Python scr
 
 ## Prereqs
 
-<img align="center" src="assets/gcp-twitter.png" alt="Twitter and GCP">
+<img align="center" width="100" height="100" src="assets/gcp-twitter.png">
 
 You'll need: 1) Twitter Developer credentials and 2) a GCP account set up. 
 
