@@ -67,7 +67,7 @@ Once those are ready, you can start the Dataflow job and run the script from you
 
 ![alt text](assets/bq.png "BigQuery")
 
-### Visualize BigQuery data using DataStudio (WIP)
+## Visualize Results Using DataStudio (WIP)
 
 ![alt text](assets/datastudio.png "Sample of results from running script")
 
