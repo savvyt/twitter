@@ -1,4 +1,5 @@
 ![alt text](assets/datastudio.png "Sample of results from running script")
+*Sample final output from pipeline showing result from streaming in tweets about Bitcoin*
 
 # Project Overview
 
