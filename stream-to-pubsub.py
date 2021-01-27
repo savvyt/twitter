@@ -18,11 +18,7 @@ with open("./project-specs.json", "r") as j:
     project_number = project_specs["project_number"]
     pub_sub_topic = project_specs["pub_sub_topic"]
     print()
-    print("Pipeline project details (loaded from 'project-specs.json'):")
-    print()
-    print(f"Project ID: {project_id}")
-    print(f"Project Number: {project_number}")
-    print(f"Project Pub/Sub Topic: {pub_sub_topic}")
+    print("Loading GCP project details from 'project-specs.json'")
     print()
 
 # Prompt the user for the terms they want to search
