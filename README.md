@@ -14,6 +14,8 @@ This pipeline mainly relies on: the Twitter API, Python, and GCP. The Python scr
 
 ![alt text](assets/gcp-twitter.png "Twitter and GCP")
 
+<div style="text-align:center"><img src="assets/gcp-twitter.png" /></div>
+
 You'll need: 1) Twitter Developer credentials and 2) a GCP account set up. 
 
 Once you have a Twitter Developer account, you'll need an app, API consumer key (and secret), and access token (and secret). 
