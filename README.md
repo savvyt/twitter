@@ -4,7 +4,7 @@
 
 # Project Overview
 
-Let's say you're someone who knows some Python, has spent time on Google Cloud Platform, and would like to work with streaming data from Twitter (either because you're curious or, like me, you wanted practice building a streaming data pipeline from start to finish). I set out to do just this and I found some good high-level resources to help guide me. But most tended to skip over some of the nitty gritty details needed to make the thing work.
+Let's say you're someone who knows some Python, has spent time on Google Cloud Platform, and would like to work with streaming data from Twitter (either because you're curious or, like me, you wanted practice building a streaming data pipeline from start to finish). I set out to do this very thing and I found some good high-level resources to help guide me. But most tended to skip over some of the nitty gritty details needed to make the thing work.
 
 So I decided to build this pipeline and document everything along the way with the intention of making it a little easier for others to do the same in the future. So without further ado, here's my attempt at providing a step by step guide to building a pipeline for analyzing streaming data from Twitter.
 
@@ -30,7 +30,7 @@ Now let's start setting everything up, from the VM to Pub/Sub to the Dataflow jo
 
 ### Send messages from Twitter API to Pub/Sub
 
-The first part of the pipeline is the Python script `stream-to-pubsub.py`, which will send tweets from the Twitter API into Pub/Sub. To run this script, you'll need to:
+The first part of the pipeline involves sending tweets from the Twitter API to Pub/Sub using the Python script `stream-to-pubsub.py`. For this script to run successfully, you'll need to:
 
 1. Setup a VM where you can run the script
 2. Enter your Twitter API credentials in Secret Manager
