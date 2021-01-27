@@ -1,4 +1,5 @@
 ![alt text](assets/script-run.gif)
+![alt text](assets/script-run2.gif)
 
 *Gif of Python script streaming in tweets from Twitter API*
 
