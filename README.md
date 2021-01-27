@@ -21,7 +21,9 @@ Once you have a Twitter Developer account, you'll need an app, API consumer key 
 
 (You may need to enable to the relevant APIs on your GCP account - Compute Engine, GCS, Dataflow, and BigQuery. You can do that using the search bar at the top of the GCP interface.)
 
-## The process
+## The pipeline
+
+![alt text](assets/flow.png "Pipeline")
 
 I'm including lots of detail here to try and help make the setup process faster for others because a lot of other resources I came across breeze over the nitty gritty details.
 
