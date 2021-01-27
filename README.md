@@ -1,25 +1,16 @@
 ![alt text](assets/datastudio.png "Sample of results from running script")
 
-# Tweet stream
+# Project Overview
 
-The point of this project is to provide a step-by-step guide on how to analyze the frequency and volume of real-time tweets about specific topics using Python and Google Cloud Platform. Let's say you're someone who knows some Python, has spent time in GCP, and wishes that you could stream in and analyze tweets. But you're not sure how to actually create that data pipeline. I wanted to build this pipeline for myself and I found some good high-level resources to help guide me. But most tended to skip over a lot of the nitty gritty details. So I set out to build this pipeline and document the steps necessary to make it work. Hope this helps.
+Let's say you're someone who knows some Python, has spent time in GCP, and would like to work with streaming data from Twitter (either because you're curious or, like me, you wanted practice building a streaming data pipeline from start to finish). I set out to do just this and I found some good high-level resources to help guide me. But most tended to skip over some of the nitty gritty details needed to make the thing work.
 
-## Current to do list
-
-* High-level to dos:
-	* This repo is very much a work in progress. I still need to clean up and consolidate the code, add more details about the pipeline process, and improve data visualization.
-	* Make script robust to timeout issues
-	* Make it possible to separate query strings and organize results in BQ based on query string matches (each row corresponds to a match with a given query paramater in the list)
-
-* Specific to dos:
-	* Need to make `stream-to-pubsub.py` search within tweets using lowercase tweet text (so that all results are captured, not just exact string matches)
-	* Need to consolidate the first part of the `write_to_pubsub` function. Currently redundant.
-	* Need to make the script better for running on different GCP projects/orgs
-	* Print out stopwatch info if you kill scrip early with ctrl + c (see link [here](https://stackoverflow.com/questions/37378185/handle-ctrl-c-in-python-cmd-module))
+So I decided to build this pipeline and document everything along the way with the intention of making it a little easier for others to do the same in the future. So without further ado, here's my attempt at providing a true step by step guide to building a pipeline for analyzing streaming data from Twitter.
 
 ## Overall flow
 
-This pipeline mainly relies on: the Twitter API, Python, and GCP. The Python script in this repo takes data from the Twitter API and sends it to Pub/Sub. Those Pub/Sub messages are then delivered to BigQuery via Dataflow and, finally, visualized in DataStudio (this last part is still very much a work in progress).
+This pipeline mainly relies on: the Twitter API, Python, and GCP. The Python script in this repo takes data from the Twitter API and sends it to Pub/Sub. Those Pub/Sub messages are then delivered to BigQuery via Dataflow and, finally, visualized in DataStudio (or maybe a different tool - this last part is still very much a work in progress).
+
+![alt text](assets/twitter-gcp.png "Twitter and GCP")
 
 ## Prereqs
 
@@ -95,3 +86,16 @@ If your Dataflow job doesn't run, you should double check to make sure that the 
 To get this project off the ground, I initially borrowed heavily from here:
 
 https://github.com/TDehaene/blogposts/tree/master/got_sentiment
+
+## Current to do list
+
+* High-level to dos:
+	* This repo is very much a work in progress. I still need to clean up and consolidate the code, add more details about the pipeline process, and improve data visualization.
+	* Make script robust to timeout issues
+	* Make it possible to separate query strings and organize results in BQ based on query string matches (each row corresponds to a match with a given query paramater in the list)
+
+* Specific to dos:
+	* Need to make `stream-to-pubsub.py` search within tweets using lowercase tweet text (so that all results are captured, not just exact string matches)
+	* Need to consolidate the first part of the `write_to_pubsub` function. Currently redundant.
+	* Need to make the script better for running on different GCP projects/orgs
+	* Print out stopwatch info if you kill scrip early with ctrl + c (see link [here](https://stackoverflow.com/questions/37378185/handle-ctrl-c-in-python-cmd-module))
