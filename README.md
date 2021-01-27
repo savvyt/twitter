@@ -12,7 +12,7 @@ So I decided to build this pipeline and document everything along the way with t
 
 ![alt text](assets/flow.png "Pipeline")
 
-This pipeline mainly relies on: the Twitter API, Python, and GCP. The Python script in this repo (`stream-to-pubsub.py`)lets the user stream in tweets about specific topics by letting the user input search phrases and hashtags at the command line. Once the program is running and the user has entered their search terms, the script accesses the Twitter API (credentials are stored in and pulled from Secret Manager), listens for tweets with those search terms, and sends them to Pub/Sub. Those Pub/Sub messages are then delivered to BigQuery via Dataflow and, finally, can be visualized using tools like DataStudio.
+This pipeline mainly relies on: the Twitter API, Python, and GCP. The Python script in this repo (`stream-to-pubsub.py`) runs on a GCP VM and accesses the Twitter API (credentials are stored in and pulled from Secret Manager), listens for tweets with specific search terms (the script will prompt you to enter which phrases or hashtags you want the program to listen for), and sends them to Pub/Sub. Those Pub/Sub messages are then delivered to BigQuery via Dataflow and, finally, can be visualized using tools like DataStudio.
 
 ## Prereqs
 
@@ -26,7 +26,7 @@ Once you have a Twitter Developer account, you'll need an app, API consumer key 
 
 ## The pipeline
 
-Now let's start setting everything up, from the VM to Pub/Sub to the Dataflow job. Most of the work is done upfront with setting up the VM, so there will be a lot of detail in the first section.
+Now let's start setting everything up, from the VM to Pub/Sub to the Dataflow job. Most of the work is done upfront with setting up the VM, so there will be a lot of detail in this first section.
 
 ### Send messages from Twitter API to Pub/Sub
 
