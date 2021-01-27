@@ -1,6 +1,6 @@
-![alt text](assets/datastudio.png "Sample of results from running script")
+![alt text](assets/script-run.gif)
 
-*Sample final output from pipeline showing result from streaming in tweets about Bitcoin*
+*Gif of Python script streaming in tweets from Twitter API*
 
 # Project Overview
 
@@ -16,7 +16,7 @@ This pipeline mainly relies on: the Twitter API, Python, and GCP. The Python scr
 
 ## Prereqs
 
-![alt text](assets/gcp-twitter.png "Pipeline")
+![alt text](assets/gcp-twitter.png "Twitter and GCP")
 
 You'll need: 1) Twitter Developer credentials and 2) a GCP account set up. 
 
@@ -26,7 +26,7 @@ Once you have a Twitter Developer account, you'll need an app, API consumer key 
 
 ## The pipeline
 
-Now let's start setting everything up, from the VM to the Dataflow job. Most of the work is done upfront with setting up the VM
+Now let's start setting everything up, from the VM to Pub/Sub to the Dataflow job. Most of the work is done upfront with setting up the VM, so there will be a lot of detail in the first section.
 
 ### Send messages from Twitter API to Pub/Sub
 
@@ -35,8 +35,6 @@ The first part of the pipeline is the Python script `stream-to-pubsub.py`, which
 1. Setup a VM where you can run the script
 2. Enter your Twitter API credentials in Secret Manager
 3. Create a Pub/Sub topic to receive messages from the Twitter API. 
-
-Here are more details on those 3 steps:
 
 #### 1. Setup VM:
 * Under the Compute Engine tab on GCP, create a Debian 10 VM. Make sure to allow access to all APIs. (In my case, I set up an `e2-small` machine in zone `us-east-4a`.)
@@ -61,17 +59,21 @@ Now, try running the script (`python3 stream-to-pubsub.py`) to make sure that it
 
 Now that the VM works and the Python script can run on the VM, you need a Dataflow job to take the messages that Pub/Sub will receive while the streaming script is running and transform and send those messages to BigQuery. To do that, you can use a GCP template for connecting Pub/Sub to BigQuery:
 
-(Photo of template)
+![alt text](assets/dataflow.png "Dataflow")
 
 Note that you'll need a GCS bucket to temporarily store files coming in from Dataflow and you'll also need an empty table in BigQuery with the appropriate schema to receive the streaming data.
 
 Once those are ready, you can start the Dataflow job and run the script from your VM. Wait a few minutes and you should start to see rows populating in your BigQuery table:
 
-(Photo of BQ table)
+![alt text](assets/bq.png "BigQuery")
 
 ### Visualize BigQuery data using DataStudio
 
 (WIP)
+
+![alt text](assets/datastudio.png "Sample of results from running script")
+
+*Sample final output from pipeline showing result from streaming in tweets about Bitcoin*
 
 ## Troubleshooting
 
@@ -79,7 +81,7 @@ Once those are ready, you can start the Dataflow job and run the script from you
 
 Receiving 401s when you run the script? 
 * Make sure you've entered the correct API credential information in Secret Manager (you may need to regenerate credentials. Twitter seems to reject credentials after a certain period of time but I'm not sure exactly how long credentials do or don't last.
-* If your credentials check out, the problem may be that the VM's internal clock is inaccurate. The VM's clock can be delayed if you pause the VM. Try stopping and restarting the VM. This should reset the clock (run `timedatectl` within the VM and check to see if `System clock synchronized` is set to `yes`). If you do want to put the VM on hold in the future, it may be better to stop it altogether rather than pause.
+* If your credentials check out, the problem may be that the VM's internal clock is inaccurate. The VM's clock can be delayed if you pause the VM. Try **stopping** and restarting the VM. This should reset the clock (run `timedatectl` within the VM and check to see if `System clock synchronized` is set to `yes`). If you do want to put the VM on hold in the future, it may be better to stop it altogether rather than pause.
 
 ### Dataflow
 
@@ -87,7 +89,7 @@ If your Dataflow job doesn't run, you should double check to make sure that the 
 
 ## Notes
 
-To get this project off the ground, I initially borrowed heavily from here:
+To get this project off the ground, I initially borrowed code from here:
 
 https://github.com/TDehaene/blogposts/tree/master/got_sentiment
 
