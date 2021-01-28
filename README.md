@@ -41,7 +41,7 @@ The first part of the pipeline involves sending tweets from the Twitter API to P
 * Now, SSH into the VM. From the command line, check for Python 3, install pip, and setup a packaging tool (in your VM, run each of the commands listed [here](https://www.digitalocean.com/community/tutorials/how-to-install-python-3-and-set-up-a-programming-environment-on-debian-10) in `Step 1`).
 * Then install `tweepy`, `google-cloud-secret-manager`, and `google-cloud-pubsub` using `pip3`.
 	* Note: I ran into a problem where Secret Manager wouldn't finish installing (others have had [the same issue](https://github.com/grpc/grpc/issues/22815)). But I upgraded pip (with `pip3 install --upgrade pip`), reran the install, and it finished quickly.
-* Finally, I installed git so I could pull directly from this repo (`sudo apt install git`).
+* Finally, install `git` (`sudo apt install git`) and clone this repo.
 
 #### 2. Add Twitter API credentials
 
@@ -61,7 +61,7 @@ Now that the VM works and the Python script can run on the VM, you need a Datafl
 
 ![alt text](assets/dataflow.png "Dataflow")
 
-Note that you'll need a GCS bucket to temporarily store files coming in from Dataflow and you'll also need an empty table in BigQuery with the appropriate schema to receive the streaming data.
+Note that you'll need a GCS bucket to temporarily store files coming in from Dataflow and you'll also need an empty table in BigQuery (use `bq-schema.json` when creating the BQ table) to receive the streaming data.
 
 Once those are ready, you can start the Dataflow job and run the script from your VM. Wait a few minutes and you should start to see rows populating in your BigQuery table:
 
