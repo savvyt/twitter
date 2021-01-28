@@ -129,7 +129,7 @@ class StdOutListener(StreamListener):
     def on_status(self, data):
         self._counter += 1
         write_to_pubsub(data._json)
-        if self._counter % 10 == 0:
+        if self._counter % 10000 == 0:
             print(f"Collected {self._counter} tweets so far")        
         return True
 
