@@ -67,7 +67,7 @@ If that worked, then move on to the next part.
 
 ## Send Pub/Sub messages to BigQuery via Dataflow
 
-Now that the VM works and the Python script can run on the VM, you need a Dataflow job to take the messages that Pub/Sub will receive while the streaming script is running and transform and send those messages to BigQuery. To do that, you can use a GCP template for connecting Pub/Sub to BigQuery:
+Now that the VM works and the Python script can run on the VM, you need a `Dataflow` job to take the messages that Pub/Sub will receive while the streaming script is running and transform and send those messages to BigQuery. To do that, you can use a GCP template for connecting Pub/Sub to BigQuery:
 
 ![alt text](assets/dataflow.png "Dataflow")
 
@@ -78,10 +78,6 @@ Once those are ready, you can start the Dataflow job and run the script from you
 ![alt text](assets/bq.png "BigQuery")
 
 # Visualize Results Using DataStudio (WIP)
-
-![alt text](assets/datastudio.png "Sample of results from running script")
-
-*Sample final output from pipeline showing result from streaming in tweets about Bitcoin*
 
 So far, I've played around with visualizing the data in Data Studio but haven't figured out how to make the timeseries chart update continuously to reflect the arrival of new data. I think there might be a way to do it in Data Studio but I'll have to keep tinkering.
 

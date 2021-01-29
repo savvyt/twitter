@@ -135,13 +135,6 @@ while True:
         print(f"ConnectionResetError occurred at {error_time.strftime('%m/%d/%Y %H:%M:%S')}")
         continue
 
-    except ProtocolError as error:
-        print(str(error))
-        print()
-        error_time = datetime.now(timezone('UTC')).astimezone(timezone('US/Eastern'))
-        print(f"ProtocolError occurred at {error_time.strftime('%m/%d/%Y %H:%M:%S')}")
-        continue
-
     except Exception as e:
         # Check to see how long script ran
         print()
