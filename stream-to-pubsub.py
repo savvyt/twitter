@@ -27,7 +27,7 @@ print("Enter search terms here (separated by a semicolon): ")
 print()
 search_terms = input().split(";")
 print()
-print("Sounds good! Here's the list of your search terms: [" + ", ".join(search_terms) + "]")
+print("Sounds good! Let's start streaming.")
 print()
 
 # Pull in access keys for Twitter from GCP Secret Manager
@@ -39,10 +39,8 @@ for secret_name in secret_names:
         f"projects/{project_number}/secrets/{secret_name}/versions/latest"}).payload.data.decode("UTF-8")
 
 # Authenticate to the Twitter API
-auth = tweepy.OAuthHandler(secret_dict["twitter-api-key"], \
-    secret_dict["twitter-api-secret"])
-auth.set_access_token(secret_dict["twitter-access-token"], \
-    secret_dict["twitter-access-token-secret"])
+auth = tweepy.OAuthHandler(secret_dict["twitter-api-key"], secret_dict["twitter-api-secret"])
+auth.set_access_token(secret_dict["twitter-access-token"], secret_dict["twitter-access-token-secret"])
 
 # Pub/Sub Config
 publisher = pubsub_v1.PublisherClient()
@@ -54,55 +52,31 @@ api = tweepy.API(auth, wait_on_rate_limit=True, wait_on_rate_limit_notify=False)
 # Method to push messages to Pub/Sub
 def write_to_pubsub(tweet):
 
-    # Lists of keys that I want the results to include
-    str_keys = ["id_str","in_reply_to_status_id_str", "in_reply_to_user_id_str","lang","text"]
-    int_keys = ["quote_count","reply_count","retweet_count","favorite_count"]
-    dict_keys = ["coordinates","place","entities","user"]
-    bool_keys = ["truncated"]
+    # Keys to search within tweet
+    keys_dict = {
+    "str_keys": {"keys": ["id_str","in_reply_to_status_id_str", "in_reply_to_user_id_str","lang","text"], "null_val": "null"},
+    "dict_keys": {"keys": ["coordinates","place","entities","user"], "null_val": "null"},
+    "bool_keys": {"keys": ["truncated"], "null_val": False}
+    }
 
-    # Set up a dict to store different parts of the tweet results
-    results_dict = {}
-
-    # Go through the raw data and look to see if each key is contained therein
-    # Note: Right now the script checks different groups of keys depending on the data type returned by the Twitter API
+    # Add keys and values to results to be send to Pub/Sub
     try:
         # Add the search term
         results_dict["search_terms"] = ";".join(search_terms)
         # Get the tweet creation date
         results_dict["created_at"] = datetime.strptime(tweet["created_at"], "%a %b %d %H:%M:%S +0000 %Y").isoformat()
-        
-        # Check all the keys that are type string
-        for key in str_keys:
-            if key in tweet:
-                results_dict[key] = tweet[key]
-            else:
-                results_dict[key] = "null"        
-
-        # Check all the keys that are type int
-        for key in int_keys:
-            if key in tweet:
-                results_dict[key] = tweet[key]
-            else:
-                results_dict[key] = 0
-
-        # Check all the keys that are type dict
-        for key in dict_keys:
-            if key in tweet:        
-                results_dict[key] = json.dumps(tweet[key])
-            else:
-                results_dict[key] = "null"
-
-        # Check all the keys that are type bool
-        for key in bool_keys:
-            if key in tweet:        
-                results_dict[key] = tweet[key]
-            else:
-                results_dict[key] = False
+    
+        for key_group in keys_dict:
+            for key in keys_dict[key_group]["keys"]:            
+                if key in tweet:
+                    results_dict[key] = tweet[key]
+                else:
+                    results_dict[key] = keys_dict[key_group]["null_val"]
 
     except Exception as e:
         print("Dict processing failed")
         print(e)
-        raise                   
+        raise                
 
     # Publish the encoded data to Pub/Sub     
     try:
@@ -118,13 +92,12 @@ def write_to_pubsub(tweet):
 
 # Custom listener class
 class StdOutListener(StreamListener):
-    """ A listener handles tweets that are received from the stream.
-    This is a basic listener that just pushes tweets to Pub/Sub
-    """
 
+    # Initialize
     def __init__(self):
         super(StdOutListener, self).__init__()
         self._counter = 0
+
 
     def on_status(self, data):
         self._counter += 1
@@ -138,7 +111,7 @@ class StdOutListener(StreamListener):
         print("Status:")
         print(status)
 
-# Start listening
+# Start streaming
 try:
     print("Streaming in tweets now!")
     print()

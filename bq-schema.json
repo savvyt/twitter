@@ -1,9 +1,5 @@
 [
   {
-    "name": "search_terms",
-    "type": "STRING"
-  },  
-  {
     "name": "created_at",
     "type": "DATETIME"
   },
@@ -42,22 +38,6 @@
   {
     "name": "user",
     "type": "STRING"
-  },
-  {
-    "name": "quote_count",
-    "type": "INTEGER"
-  },
-  {
-    "name": "reply_count",
-    "type": "INTEGER"
-  },
-  {
-    "name": "retweet_count",
-    "type": "INTEGER"
-  },
-  {
-    "name": "favorite_count",
-    "type": "INTEGER"
   },
   {
     "name": "truncated",
