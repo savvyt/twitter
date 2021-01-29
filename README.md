@@ -20,9 +20,9 @@ Here's a way to visualize the pipeline:
 
 ## Prereqs
 
-![alt text](assets/gcp-twitter.png "Twitter and GCP")
+You'll need: 1) Twitter Developer credentials and 2) a GCP account set up:
 
-You'll need: 1) Twitter Developer credentials and 2) a GCP account set up. 
+![alt text](assets/gcp-twitter.png "Twitter and GCP")
 
 Once you have a Twitter Developer account, you'll need an app, API consumer key (and secret), and access token (and secret). 
 
