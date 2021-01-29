@@ -12,7 +12,7 @@ So without further ado, here's my attempt at providing a step by step guide to b
 
 This pipeline mainly relies on: the Twitter API, Python, and GCP. 
 
-The Python script in this repo (`stream-to-pubsub.py`) runs on a GCP VM and accesses the Twitter API (credentials are stored in and pulled from Secret Manager), listens for tweets with specific search terms (the script will prompt you to enter which phrases or hashtags you want the script to listen for), and sends them to Pub/Sub. Those Pub/Sub messages are then delivered to BigQuery via Dataflow and, finally, can be visualized using tools like DataStudio.
+The Python script in this repo (`stream-to-pubsub.py`) runs on a GCP `Compute Engine`VM and accesses the Twitter API (credentials are stored in and pulled from `Secret Manager`), listens for tweets with specific search terms (the script will prompt you to enter which phrases or hashtags you want the script to listen for), and sends them to `Pub/Sub`. Those Pub/Sub messages are then delivered to `BigQuery` via `Dataflow` and, finally, can be visualized using tools like `Data Studio`.
 
 Here's a way to visualize the pipeline:
 
