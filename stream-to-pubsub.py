@@ -72,7 +72,10 @@ def write_to_pubsub(tweet):
         for key_group in keys_dict:
             for key in keys_dict[key_group]["keys"]:            
                 if key in tweet:
-                    results_dict[key] = tweet[key]
+                    if isinstance(tweet[key], dict):
+                        results_dict[key] = json.dumps(tweet[key])
+                    else:
+                        results_dict[key] = tweet[key]
                 else:
                     results_dict[key] = keys_dict[key_group]["null_val"]
 
