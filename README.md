@@ -53,15 +53,17 @@ Now you need to add your Twitter API access credentials to GCP `Secret Manager`.
 
 ### 3. Create Pub/Sub topic
 
-Create a Pub/Sub topic and name it accordingly (something like `twitter` will work). Then modify the `project-specs.json` file in this repo using the project and Pub/Sub topic info from your GCP account (you can find that info in the `Home` tab on GCP).
+Create a `Pub/Sub` topic and name it accordingly (something like `twitter` will work). Then modify the `project-specs.json` file in this repo using the project and Pub/Sub topic info from your GCP account (you can find that info in the `Home` tab on GCP).
 
 ### Give it a whirl!
 
+Now, try running the script (`python3 stream-to-pubsub.py`) to make sure that it actually works on the VM.
+
 ![alt text](assets/script-run.gif)
 
-*Sample of script running*
+*It should look something like this*
 
-Now, try running the script (`python3 stream-to-pubsub.py`) to make sure that it actually works on the VM. If it does, then move on to the next part.
+If that worked, then move on to the next part.
 
 ## Send Pub/Sub messages to BigQuery via Dataflow
 
