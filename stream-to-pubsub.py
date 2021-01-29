@@ -52,6 +52,9 @@ api = tweepy.API(auth, wait_on_rate_limit=True, wait_on_rate_limit_notify=False)
 # Method to push messages to Pub/Sub
 def write_to_pubsub(tweet):
 
+    # Initialize results dict
+    results_dict = {}
+
     # Keys to search within tweet
     keys_dict = {
     "str_keys": {"keys": ["id_str","in_reply_to_status_id_str", "in_reply_to_user_id_str","lang","text"], "null_val": "null"},
