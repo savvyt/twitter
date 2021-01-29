@@ -1,12 +1,12 @@
 ![alt text](assets/datastudio.png "Sample of results from running script")
 
-*Sample pipeline results showing tweets about various stock ticker symbols*
-
 # Project Overview
 
 Let's say you're someone who knows some Python, has spent time on Google Cloud Platform, and would like to work with streaming data from Twitter (either because you're curious or, like me, you wanted practice building a streaming data pipeline from start to finish). I set out to do this very thing and I found some good high-level resources to help guide me. But most tended to skip over some of the nitty gritty details needed to make the thing work.
 
-So I decided to build this pipeline and document everything along the way with the intention of making it a little easier for others to do the same in the future. So without further ado, here's my attempt at providing a step by step guide to building a pipeline for analyzing streaming data from Twitter.
+So I decided to build this pipeline and document everything along the way with the intention of making it a little easier for others to do the same in the future. In the end, I came out with a blueprint for a data pipeline that lets you stream in tweets on topics that interest you. (The chart above, for example, shows a sample run of the pipeline for about 20 minutes, streaming in all tweets about various stock ticker symbols.)
+
+So without further ado, here's my attempt at providing a step by step guide to building a pipeline for analyzing streaming data from Twitter.
 
 ## Overall flow
 
