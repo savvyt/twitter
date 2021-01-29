@@ -38,18 +38,18 @@ The first part of the pipeline involves sending tweets from the Twitter API to P
 
 1. Setup a VM where you can run the script
 2. Enter your Twitter API credentials in Secret Manager
-3. Create a Pub/Sub topic to receive messages from the Twitter API. 
+3. Create a Pub/Sub topic to receive messages from the Twitter API 
 
 ### 1. Setup VM:
-* Under the Compute Engine tab on GCP, create a Debian 10 VM. Make sure to allow access to all APIs. (In my case, I set up an `e2-small` machine in zone `us-east-4a`.)
-* Now, SSH into the VM. From the command line, check for Python 3, install pip, and setup a packaging tool (in your VM, run each of the commands listed [here](https://www.digitalocean.com/community/tutorials/how-to-install-python-3-and-set-up-a-programming-environment-on-debian-10) in `Step 1`).
+* Under the `Compute Engine` tab on GCP, create a Debian 10 VM. Make sure to allow access to all APIs. (In my case, I set up an `e2-small` machine in zone `us-east-4a`.)
+* Now, `SSH` into the VM. From the command line, check for Python 3, install pip, and setup a packaging tool (in your VM, run each of the commands listed [here](https://www.digitalocean.com/community/tutorials/how-to-install-python-3-and-set-up-a-programming-environment-on-debian-10) in `Step 1`).
 * Then install `tweepy`, `google-cloud-secret-manager`, and `google-cloud-pubsub` using `pip3`.
 	* Note: I ran into a problem where Secret Manager wouldn't finish installing (others have had [the same issue](https://github.com/grpc/grpc/issues/22815)). But I upgraded pip (with `pip3 install --upgrade pip`), reran the install, and it finished quickly.
 * Finally, install `git` (`sudo apt install git`) and clone this repo.
 
 ### 2. Add Twitter API credentials
 
-Now you need to add your Twitter API access credentials to GCP Secret Manager. Within Secret Manager, create a secret for each of the 4 credentials you'll need for the script to access the Twitter API and name them accordingly (`twitter-api-key`, `twitter-api-secret`, `twitter-access-token`, and `twitter-access-token-secret`). Lastly, add `Secret Manager Secret Accessor` to the Compute Engine default service account in IAM.
+Now you need to add your Twitter API access credentials to GCP `Secret Manager`. Within Secret Manager, create a secret for each of the 4 credentials you'll need for the script to access the Twitter API and name them accordingly (`twitter-api-key`, `twitter-api-secret`, `twitter-access-token`, and `twitter-access-token-secret`). Lastly, add `Secret Manager Secret Accessor` to the Compute Engine default service account in IAM.
 
 ### 3. Create Pub/Sub topic
 
