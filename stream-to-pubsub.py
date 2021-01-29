@@ -47,7 +47,7 @@ publisher = pubsub_v1.PublisherClient()
 topic_path = publisher.topic_path(f"{project_id}", f"{pub_sub_topic}")
 
 # ???
-api = tweepy.API(auth, wait_on_rate_limit=True, wait_on_rate_limit_notify=False)
+api = tweepy.API(auth, wait_on_rate_limit=True)
 
 # Method to push messages to Pub/Sub
 def write_to_pubsub(tweet):
@@ -118,28 +118,37 @@ class StdOutListener(StreamListener):
         print(status)
 
 # Start streaming
-try:
-    print("Streaming in tweets now!")
-    print()
-    l = StdOutListener()
-    stream = tweepy.Stream(auth, l, tweet_mode="extended", is_async=True) # add 'is_async=True' so your connection breaks less often
-    stream.filter(track=search_terms)
+while True:
+    try:
+        print("Streaming in tweets now!")
+        print()
+        l = StdOutListener()
+        stream = tweepy.Stream(auth, l, tweet_mode="extended", is_async=True, \
+            retry_count=10)
+        stream.filter(track=search_terms)
 
-except Exception as e:
-    # Check to see how long script ran
-    print()
-    print("Listening halted!")
-    script_end = datetime.now(timezone('UTC')).astimezone(timezone('US/Eastern'))
-    print(f"Script end date and time: {script_end.strftime('%m/%d/%Y %H:%M:%S')}")
-    diff = (script_end - script_start).total_seconds()
-    hours = diff // 3600
-    minutes = diff % 3600 // 60
-    seconds = round(diff - (hours * 3600) - (minutes * 60), 2)
-    print(f"Script ran for: {hours} hours, {minutes} minutes, and {seconds} seconds")
-    print()
+    except ProtocolError as error:
+        print(str(error))
+        print()
+        error_time = datetime.now(timezone('UTC')).astimezone(timezone('US/Eastern'))
+        print(f"ProtocolError occurred at {error_time.strftime('%m/%d/%Y %H:%M:%S')}")
+        continue
 
-    # Inspect errors
-    print("See error below:")
-    print()
-    print(e)
-    raise 
+    except Exception as e:
+        # Check to see how long script ran
+        print()
+        print("Listening halted!")
+        script_end = datetime.now(timezone('UTC')).astimezone(timezone('US/Eastern'))
+        print(f"Script end date and time: {script_end.strftime('%m/%d/%Y %H:%M:%S')}")
+        diff = (script_end - script_start).total_seconds()
+        hours = diff // 3600
+        minutes = diff % 3600 // 60
+        seconds = round(diff - (hours * 3600) - (minutes * 60), 2)
+        print(f"Script ran for: {hours} hours, {minutes} minutes, and {seconds} seconds")
+        print()
+
+        # Inspect errors
+        print("See error below:")
+        print()
+        print(e)
+        raise 
