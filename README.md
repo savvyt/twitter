@@ -1,6 +1,6 @@
-![alt text](assets/script-run.gif)
+![alt text](assets/datastudio.png "Sample of results from running script")
 
-*Gif of Python script streaming in tweets from Twitter API*
+*Sample pipeline results showing tweets about various stock ticker symbols*
 
 # Project Overview
 
@@ -52,6 +52,10 @@ Now you need to add your Twitter API access credentials to GCP Secret Manager. W
 Create a Pub/Sub topic and name it accordingly (something like `twitter` will work). Then modify the `project-specs.json` file in this repo using the project and Pub/Sub topic info from your GCP account (you can find that info in the `Home` tab on GCP).
 
 #### Give it a whirl!
+
+![alt text](assets/script-run.gif)
+
+*Sample of script running*
 
 Now, try running the script (`python3 stream-to-pubsub.py`) to make sure that it actually works on the VM. If it does, then move on to the next part.
 
