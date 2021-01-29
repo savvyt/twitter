@@ -124,7 +124,7 @@ while True:
         print()
         l = StdOutListener()
         stream = tweepy.Stream(auth, l, tweet_mode="extended", is_async=True, \
-            retry_count=10)
+            retry_count=10, stall_warnings=True)
         stream.filter(track=search_terms)
 
     # Added to combat connection errors that tend to arise
