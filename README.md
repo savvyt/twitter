@@ -8,11 +8,15 @@ So I decided to build this pipeline and document everything along the way with t
 
 So without further ado, here's my attempt at providing a step by step guide to building a pipeline for analyzing streaming data from Twitter.
 
-## Overall flow
+# Pipeline Blueprint
+
+This pipeline mainly relies on: the Twitter API, Python, and GCP. 
+
+The Python script in this repo (`stream-to-pubsub.py`) runs on a GCP VM and accesses the Twitter API (credentials are stored in and pulled from Secret Manager), listens for tweets with specific search terms (the script will prompt you to enter which phrases or hashtags you want the script to listen for), and sends them to Pub/Sub. Those Pub/Sub messages are then delivered to BigQuery via Dataflow and, finally, can be visualized using tools like DataStudio.
+
+Here's a way to visualize the pipeline:
 
 ![alt text](assets/flow.png "Pipeline")
-
-This pipeline mainly relies on: the Twitter API, Python, and GCP. The Python script in this repo (`stream-to-pubsub.py`) runs on a GCP VM and accesses the Twitter API (credentials are stored in and pulled from Secret Manager), listens for tweets with specific search terms (the script will prompt you to enter which phrases or hashtags you want the program to listen for), and sends them to Pub/Sub. Those Pub/Sub messages are then delivered to BigQuery via Dataflow and, finally, can be visualized using tools like DataStudio.
 
 ## Prereqs
 
