@@ -4,7 +4,7 @@
 
 Let's say you're someone who knows some Python, has spent time on Google Cloud Platform, and would like to work with streaming data from Twitter (either because you're curious or, like me, you wanted practice building a streaming data pipeline from start to finish). I set out to do this very thing and I found some good high-level resources to help guide me. But most tended to skip over some of the nitty gritty details needed to make the thing work.
 
-So I decided to build this pipeline and document everything along the way with the intention of making it a little easier for others to do the same in the future. In the end, I came out with a blueprint for a data pipeline that lets you stream in tweets on topics that interest you. (The chart above, for example, shows a sample run of the pipeline for about 30 minutes, streaming in all tweets about various stock ticker symbols.)
+So I decided to build this pipeline and document everything along the way with the intention of making it a little easier for others to do the same in the future. In the end, I came out with a blueprint for a data pipeline that lets you stream in tweets on topics that interest you. (The chart above, for example, shows a sample run of the pipeline for about 30 minutes, streaming in tweets about various stock ticker symbols.)
 
 So without further ado, here's my attempt at providing a step by step guide to building a pipeline for analyzing streaming data from Twitter.
 
@@ -79,7 +79,7 @@ Once those are ready, you can start the Dataflow job and run the script from you
 
 # Visualize Results Using DataStudio (WIP)
 
-So far, I've played around with visualizing the data in Data Studio but haven't figured out how to make the timeseries chart update continuously to reflect the arrival of new data. I think there might be a way to do it in Data Studio but I'll have to keep tinkering.
+ So far, I've played around with visualizing the data in Data Studio but haven't figured out how to make the timeseries chart update continuously to reflect the arrival of new data. I think there might be a way to do it in Data Studio but I'll have to keep tinkering.
 
 # Troubleshooting
 
@@ -98,6 +98,8 @@ This one has been trickier to solve. I've added a few parameters to the script t
 If your Dataflow job doesn't run, you should double check to make sure that the necessary Dataflow APIs have been enabled (using the command `gcloud services enable dataflow.googleapis.com`).
 
 # Notes
+
+One thing to keep in mind is that the tweets that are streamed into this pipeline come from a random sample that's just 1% of all tweets. So if you streamed in tweets containing `#trending` and you got back 10,000 tweets in the first minute, those 10,000 tweets originated in just a 1% random sample of all of Twitter's new content posted in that minute. In other words, the results don't include every single tweet containing #trending. They include every tweet within a 1% sample that contained #trending.
 
 To get this project off the ground, I initially borrowed code from here:
 
