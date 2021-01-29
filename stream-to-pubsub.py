@@ -127,13 +127,14 @@ while True:
             retry_count=10)
         stream.filter(track=search_terms)
 
+    # Added to combat connection errors that tend to arise
     except ConnectionResetError as error:
         print(str(error))
         print()
         error_time = datetime.now(timezone('UTC')).astimezone(timezone('US/Eastern'))
         print(f"ConnectionResetError occurred at {error_time.strftime('%m/%d/%Y %H:%M:%S')}")
         continue
-        
+
     except ProtocolError as error:
         print(str(error))
         print()

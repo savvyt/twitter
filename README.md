@@ -4,7 +4,7 @@
 
 Let's say you're someone who knows some Python, has spent time on Google Cloud Platform, and would like to work with streaming data from Twitter (either because you're curious or, like me, you wanted practice building a streaming data pipeline from start to finish). I set out to do this very thing and I found some good high-level resources to help guide me. But most tended to skip over some of the nitty gritty details needed to make the thing work.
 
-So I decided to build this pipeline and document everything along the way with the intention of making it a little easier for others to do the same in the future. In the end, I came out with a blueprint for a data pipeline that lets you stream in tweets on topics that interest you. (The chart above, for example, shows a sample run of the pipeline for about 20 minutes, streaming in all tweets about various stock ticker symbols.)
+So I decided to build this pipeline and document everything along the way with the intention of making it a little easier for others to do the same in the future. In the end, I came out with a blueprint for a data pipeline that lets you stream in tweets on topics that interest you. (The chart above, for example, shows a sample run of the pipeline for about 30 minutes, streaming in all tweets about various stock ticker symbols.)
 
 So without further ado, here's my attempt at providing a step by step guide to building a pipeline for analyzing streaming data from Twitter.
 
@@ -86,6 +86,10 @@ So far, I've played around with visualizing the data in Data Studio but haven't 
 Receiving 401s when you run the script? 
 * Make sure you've entered the correct API credential information in Secret Manager (you may need to regenerate credentials. Twitter seems to reject credentials after a certain period of time but I'm not sure exactly how long credentials do or don't last.
 * If your credentials check out, the problem may be that the VM's internal clock is inaccurate. The VM's clock can be delayed if you pause the VM. Try **stopping** and restarting the VM. This should reset the clock (run `timedatectl` within the VM and check to see if `System clock synchronized` is set to `yes`). If you do want to put the VM on hold in the future, it may be better to stop it altogether rather than pause.
+
+Getting connection errors?
+
+This one has been trickier to solve. I've added a few parameters to the script to try and prevent the stream from breaking. The only other thing that might help is, if you're running the VM within a Chrome browser (like I did), make sure you have the most up-to-date version of Chrome.
 
 ### Dataflow
 
