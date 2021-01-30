@@ -108,7 +108,7 @@ class StdOutListener(StreamListener):
     def on_status(self, data):
         self._counter += 1
         write_to_pubsub(data._json)
-        if self._counter % 100 == 0:
+        if self._counter % 10000 == 0:
             print(f"Collected {self._counter} tweets as of {datetime.now(timezone('UTC')).astimezone(timezone('US/Eastern')).strftime('%m/%d/%Y %H:%M:%S')}")
         return True
 
