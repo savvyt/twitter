@@ -104,7 +104,6 @@ class StdOutListener(StreamListener):
         super(StdOutListener, self).__init__()
         self._counter = 0
 
-
     def on_status(self, data):
         self._counter += 1
         write_to_pubsub(data._json)
