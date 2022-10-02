@@ -47,7 +47,7 @@ publisher = pubsub_v1.PublisherClient()
 topic_path = publisher.topic_path(f"{project_id}", f"{pub_sub_topic}")
 
 # ???
-api = tweepy.API(auth, wait_on_rate_limit=True, wait_on_rate_limit_notify=True)
+api = tweepy.API(auth, wait_on_rate_limit=True)
 
 # Method to push messages to Pub/Sub
 def write_to_pubsub(tweet):
