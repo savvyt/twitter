@@ -125,7 +125,7 @@ while True:
     try:
         print("Streaming in tweets now!")
         print()
-        l = StdOutListener()
+        # l = StdOutListener()
         stream = streaming_client(max_retries = 10)
         # stream = tweepy.Stream(auth, l, tweet_mode="extended", is_async=True, \
         #     retry_count=10, stall_warnings=True)
