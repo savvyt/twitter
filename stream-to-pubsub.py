@@ -8,7 +8,7 @@ from google.cloud import secretmanager
 from google.cloud import pubsub_v1
 
 # To track how long the script successfully executes
-script_start = datetime.now(timezone('UTC')).astimezone(timezone('US/Eastern'))
+script_start = datetime.now(timezone('UTC')).astimezone(timezone('Europe/Oslo'))
 print()
 print(f"Script start date and time: {script_start.strftime('%m/%d/%Y %H:%M:%S')}")
 
@@ -108,7 +108,7 @@ class StdOutListener(Stream):
         self._counter += 1
         write_to_pubsub(data._json)
         if self._counter % 10000 == 0:
-            print(f"Collected {self._counter} tweets as of {datetime.now(timezone('UTC')).astimezone(timezone('US/Eastern')).strftime('%m/%d/%Y %H:%M:%S')}")
+            print(f"Collected {self._counter} tweets as of {datetime.now(timezone('UTC')).astimezone(timezone('Europe/Oslo')).strftime('%m/%d/%Y %H:%M:%S')}")
         return True
 
     def on_error(self, status):
@@ -122,8 +122,10 @@ while True:
         print("Streaming in tweets now!")
         print()
         l = StdOutListener()
-        stream = tweepy.Stream(auth, l, tweet_mode="extended", is_async=True, \
+        stream = tweepy.Stream(secret_dict["twitter-api-key"], secret_dict["twitter-api-secret"], secret_dict["twitter-access-token"], secret_dict["twitter-access-token-secret"], l, tweet_mode="extended", is_async=True, \
             retry_count=10, stall_warnings=True)
+        # stream = tweepy.Stream(auth, l, tweet_mode="extended", is_async=True, \
+        #     retry_count=10, stall_warnings=True)
         stream.filter(track=search_terms)
 
     # Added to combat connection errors that tend to arise
