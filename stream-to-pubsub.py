@@ -1,11 +1,14 @@
 from datetime import datetime
 from pytz import timezone
+import os
 import json
 import time
 import tweepy
 from tweepy.streaming import Stream
 from google.cloud import secretmanager
 from google.cloud import pubsub_v1
+
+bearer_token = os.environ.get("BEARER_TOKEN")
 
 # To track how long the script successfully executes
 script_start = datetime.now(timezone('UTC')).astimezone(timezone('Europe/Oslo'))
@@ -33,7 +36,7 @@ print()
 # Pull in access keys for Twitter from GCP Secret Manager
 secret_client = secretmanager.SecretManagerServiceClient()
 secret_dict = {}
-secret_names = ["twitter-api-key", "twitter-api-secret", "twitter-access-token", "twitter-access-token-secret"]
+secret_names = ["twitter-api-key", "twitter-api-secret", "twitter-access-token", "twitter-access-token-secret","twitter-bearer-token"]
 for secret_name in secret_names:
     secret_dict[secret_name] = secret_client.access_secret_version({"name": \
         f"projects/{project_number}/secrets/{secret_name}/versions/latest"}).payload.data.decode("UTF-8")
@@ -41,6 +44,7 @@ for secret_name in secret_names:
 # Authenticate to the Twitter API
 auth = tweepy.OAuthHandler(secret_dict["twitter-api-key"], secret_dict["twitter-api-secret"])
 auth.set_access_token(secret_dict["twitter-access-token"], secret_dict["twitter-access-token-secret"])
+streaming_client = tweepy.StreamingClient(secret_dict["twitter-bearer-token"])
 
 # Pub/Sub Config
 publisher = pubsub_v1.PublisherClient()
@@ -122,8 +126,7 @@ while True:
         print("Streaming in tweets now!")
         print()
         l = StdOutListener()
-        stream = tweepy.Stream(secret_dict["twitter-api-key"], secret_dict["twitter-api-secret"], secret_dict["twitter-access-token"], secret_dict["twitter-access-token-secret"], l, tweet_mode="extended", is_async=True, \
-            retry_count=10, stall_warnings=True)
+        stream = streaming_client(max_retries = 10)
         # stream = tweepy.Stream(auth, l, tweet_mode="extended", is_async=True, \
         #     retry_count=10, stall_warnings=True)
         stream.filter(track=search_terms)
