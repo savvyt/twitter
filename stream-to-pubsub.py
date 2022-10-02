@@ -44,7 +44,7 @@ for secret_name in secret_names:
 # Authenticate to the Twitter API
 auth = tweepy.OAuthHandler(secret_dict["twitter-api-key"], secret_dict["twitter-api-secret"])
 auth.set_access_token(secret_dict["twitter-access-token"], secret_dict["twitter-access-token-secret"])
-streaming_client = tweepy.StreamingClient(secret_dict["twitter-bearer-token"])
+# streaming_client = tweepy.StreamingClient(secret_dict["twitter-bearer-token"])
 
 # Pub/Sub Config
 publisher = pubsub_v1.PublisherClient()
@@ -126,7 +126,7 @@ while True:
         print("Streaming in tweets now!")
         print()
         # l = StdOutListener()
-        stream = streaming_client(max_retries = 10)
+        stream = tweepy.StreamingClient(bearer_token , max_retries = 10)
         # stream = tweepy.Stream(auth, l, tweet_mode="extended", is_async=True, \
         #     retry_count=10, stall_warnings=True)
         stream.filter(track=search_terms)
