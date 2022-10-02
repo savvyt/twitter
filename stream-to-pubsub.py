@@ -3,7 +3,7 @@ from pytz import timezone
 import json
 import time
 import tweepy
-from tweepy.streaming import StreamListener
+from tweepy.streaming import Stream
 from google.cloud import secretmanager
 from google.cloud import pubsub_v1
 
@@ -97,7 +97,7 @@ def write_to_pubsub(tweet):
         raise        
 
 # Custom listener class
-class StdOutListener(StreamListener):
+class StdOutListener(Stream):
 
     # Initialize
     def __init__(self):
